@@ -1,119 +1,282 @@
 import { Mail, Lock, Eye, EyeOff } from "lucide-react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-
+import logo from "../../assets/branding/BIZ BITE NOW Horizontal Complete.png";
+import logo1 from "../../assets/branding/BIZBITENOW Vertical Complete1.png";
+import { motion } from "framer-motion";
 const Login = () => {
-  const navigate = useNavigate();
+    const navigate = useNavigate();
 
-  const [showPin, setShowPin] = useState(false);
-  const [email, setEmail] = useState("");
-  const [pin, setPin] = useState("");
+    const [showPin, setShowPin] = useState(false);
+    const [email, setEmail] = useState("");
+    const [pin, setPin] = useState("");
 
-  const handleLogin = (e) => {
-    e.preventDefault();
+    const handleLogin = (e) => {
+        e.preventDefault();
 
-    // Temporary frontend-only login
-    localStorage.setItem("sellerAuth", "true");
+        // Temporary frontend-only login
+        localStorage.setItem("sellerAuth", "true");
 
-    navigate("/seller/dashboard");
-  };
+        navigate("/seller/dashboard");
+    };
 
-  return (
-    <div className="min-h-screen bg-gradient-to-br from-[#1A4D2E] via-[#205C38] to-[#163D24] flex items-center justify-center p-4">
-      <div className="w-full max-w-md bg-white rounded-3xl shadow-2xl p-8">
-        {/* Logo */}
-        <div className="text-center mb-8">
-          <div className="w-16 h-16 rounded-2xl bg-[#1A4D2E] mx-auto flex items-center justify-center text-white text-2xl font-bold">
-            B
-          </div>
+    return (
+        <div className="relative min-h-screen overflow-hidden bg-[#16522d] flex items-center justify-center p-6">
 
-          <h1 className="text-3xl font-bold mt-5 text-gray-800">
-            Seller Login
-          </h1>
+            {/* White Blob */}
+            <div
+                className="absolute -top-48 -right-48 w-[700px] h-[700px] rounded-full"
+                style={{
+                    background: "rgba(255,255,255,0.75)",
+                    filter: "blur(140px)",
+                }}
+            />
 
-          <p className="text-gray-500 mt-2">
-            Login to manage your BizBiteNow store
-          </p>
-        </div>
+            {/* Yellow Blob */}
+            <div
+                className="absolute -bottom-56 -left-56 w-[650px] h-[650px] rounded-full"
+                style={{
+                    background: "rgba(255,199,0,0.70)",
+                    filter: "blur(140px)",
+                }}
+            />
 
-        <form onSubmit={handleLogin} className="space-y-5">
-          {/* Email */}
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
-              Email
-            </label>
+            {/* Center Green Highlight */}
+            <div
+                className="absolute top-1/2 left-1/2 w-[800px] h-[800px] -translate-x-1/2 -translate-y-1/2 rounded-full"
+                style={{
+                    background: "rgba(255,255,255,0.08)",
+                    filter: "blur(120px)",
+                }}
+            />
 
-            <div className="relative">
-              <Mail
-                className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"
-                size={20}
-              />
+            {/* Small White Blob */}
+            <div
+                className="absolute top-24 left-24 w-[280px] h-[280px] rounded-full"
+                style={{
+                    background: "rgba(255,255,255,0.35)",
+                    filter: "blur(90px)",
+                }}
+            />
 
-              <input
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                placeholder="Enter your email"
-                className="w-full border border-gray-300 rounded-xl py-3 pl-12 pr-4 focus:outline-none focus:ring-2 focus:ring-[#1A4D2E]"
-                required
-              />
-            </div>
-          </div>
-
-          {/* PIN */}
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
-              PIN
-            </label>
-
-            <div className="relative">
-              <Lock
-                className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"
-                size={20}
-              />
-
-              <input
-                type={showPin ? "text" : "password"}
-                value={pin}
-                onChange={(e) => setPin(e.target.value)}
-                placeholder="Enter your PIN"
-                className="w-full border border-gray-300 rounded-xl py-3 pl-12 pr-12 focus:outline-none focus:ring-2 focus:ring-[#1A4D2E]"
-                required
-              />
-
-              <button
-                type="button"
-                onClick={() => setShowPin(!showPin)}
-                className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-500"
-              >
-                {showPin ? <EyeOff size={20} /> : <Eye size={20} />}
-              </button>
-            </div>
-          </div>
-
-          <div className="flex justify-end">
-            <button
-              type="button"
-              className="text-sm text-[#1A4D2E] hover:underline"
+            {/* Small Yellow Blob */}
+            <div
+                className="absolute bottom-20 right-32 w-[260px] h-[260px] rounded-full"
+                style={{
+                    background: "rgba(255,199,0,0.45)",
+                    filter: "blur(90px)",
+                }}
+            />
+            <motion.div
+                initial={{ opacity: 0, x: -80 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: 80 }}
+                transition={{
+                    duration: 0.45,
+                    ease: "easeInOut",
+                }}
+                className="w-full max-w-7xl"
             >
-              Forgot PIN?
-            </button>
-          </div>
 
-          <button
-            type="submit"
-            className="w-full bg-[#1A4D2E] hover:bg-[#163D24] text-white py-3 rounded-xl font-semibold transition"
-          >
-            Login
-          </button>
-        </form>
+                <div className="relative z-10 w-full max-w-7xl grid lg:grid-cols-2 rounded-[32px] overflow-hidden bg-white shadow-[0_40px_80px_rgba(22,82,45,0.15)]">
 
-        <p className="text-center text-sm text-gray-500 mt-8">
-          © 2026 BizBiteNow. All rights reserved.
-        </p>
-      </div>
-    </div>
-  );
+                    {/* LEFT PANEL */}
+
+                    <div className="hidden lg:flex flex-col justify-between bg-gradient-to-br from-[#123524] via-[#18452C] to-[#1A4D2E] text-white p-14 relative overflow-hidden">
+
+                        <div className="absolute -top-20 -left-20 h-72 w-72 rounded-full bg-green-400/10 blur-3xl"></div>
+
+                        <div className="absolute bottom-0 right-0 h-64 w-64 rounded-full bg-yellow-400/10 blur-3xl"></div>
+                        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(255,255,255,0.08),transparent_45%)]"></div>
+                        <div className="relative">
+                            <img
+                                src={logo}
+                                alt="BizBiteNow"
+                                className="h-20 object-contain rounded-lg shadow-lg"
+                            />
+
+                            <div className="mt-10">
+                                <span className="inline-flex items-center rounded-full bg-green-500/20 border border-green-400/30 px-4 py-1 text-sm font-medium text-green-100">
+                                    Seller Portal
+                                </span>
+                            </div>
+
+                            <h2 className="mt-8 text-4xl font-bold leading-tight">
+                                Welcome Back,
+                                <br />
+                                Grow Your Business.
+                            </h2>
+
+                            <p className="mt-6 max-w-md text-green-100 leading-8">
+                                Manage products, track orders, monitor earnings, and run your business
+                                efficiently from one secure dashboard.
+                            </p>
+
+                        </div>
+
+                        <div className="space-y-5">
+
+                            {[
+                                "Manage Products",
+                                "Track Orders",
+                                "View Earnings",
+                                "Real-time Analytics",
+                                "Secure Seller Access",
+                            ].map((item) => (
+                                <div
+                                    key={item}
+                                    className="flex items-center gap-3 bg-white/5 rounded-xl p-3"
+                                >
+                                    <span className="text-green-300">✓</span>
+                                    <span>{item}</span>
+                                </div>
+                            ))}
+
+                        </div>
+
+                    </div>
+
+                    {/* RIGHT PANEL */}
+
+                    <div className="bg-white px-8 py-10 md:px-14 flex flex-col justify-center">
+
+                        {/* Logo */}
+
+                        <div className="text-center mb-10">
+
+                            <div className="mx-auto h-20 w-20 rounded-2xl bg-white text-white flex items-center justify-center text-2xl font-bold shadow-lg">
+                                <img
+                                    src={logo1}
+                                    alt="BizBiteNow"
+                                    className="h-20 object-contain"
+                                />
+                            </div>
+
+                            <h2 className="mt-6 text-4xl font-bold text-gray-900">
+                                Welcome Back
+                            </h2>
+
+                            <p className="mt-2 text-gray-500">
+                                Sign in to access your seller dashboard.
+                            </p>
+
+                        </div>
+
+                        {/* FORM STARTS HERE */}
+                        <form onSubmit={handleLogin} className="space-y-6">
+
+                            {/* Email */}
+
+                            <div>
+                                <label className="block text-sm font-semibold text-gray-700 mb-2">
+                                    Email Address
+                                </label>
+
+                                <div className="relative">
+
+                                    <Mail
+                                        size={20}
+                                        className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"
+                                    />
+
+                                    <input
+                                        type="email"
+                                        value={email}
+                                        onChange={(e) => setEmail(e.target.value)}
+                                        placeholder="seller@example.com"
+                                        className="w-full rounded-xl border border-gray-300 bg-gray-50 py-3.5 pl-12 pr-4 transition-all duration-300 focus:border-[#1A4D2E] focus:ring-4 focus:ring-green-100 outline-none"
+                                        required
+                                    />
+
+                                </div>
+                            </div>
+
+                            {/* PIN */}
+
+                            <div>
+
+                                <label className="block text-sm font-semibold text-gray-700 mb-2">
+                                    PIN
+                                </label>
+
+                                <div className="relative">
+
+                                    <Lock
+                                        size={20}
+                                        className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"
+                                    />
+
+                                    <input
+                                        type={showPin ? "text" : "password"}
+                                        value={pin}
+                                        onChange={(e) => setPin(e.target.value)}
+                                        placeholder="Enter your PIN"
+                                        className="w-full rounded-xl border border-gray-300 bg-gray-50 py-3.5 pl-12 pr-12 transition-all duration-300 focus:border-[#1A4D2E] focus:ring-4 focus:ring-green-100 outline-none"
+                                        required
+                                    />
+
+                                    <button
+                                        type="button"
+                                        onClick={() => setShowPin(!showPin)}
+                                        className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-500 hover:text-[#1A4D2E]"
+                                    >
+                                        {showPin ? <EyeOff size={20} /> : <Eye size={20} />}
+                                    </button>
+
+                                </div>
+
+                            </div>
+
+                            {/* Forgot PIN */}
+
+                            <div className="flex justify-end">
+
+                                <button
+                                    type="button"
+                                    className="text-sm font-medium text-[#1A4D2E] hover:underline"
+                                >
+                                    Forgot PIN?
+                                </button>
+
+                            </div>
+
+                            {/* Login Button */}
+
+                            <button
+                                type="submit"
+                                className="w-full rounded-xl bg-gradient-to-r from-[#1A4D2E] to-[#2D6A4F] py-3.5 text-white font-semibold shadow-lg transition-all duration-300 hover:-translate-y-0.5 hover:shadow-xl"
+                            >
+                                Login
+                            </button>
+
+                        </form>
+
+                        <div className="mt-10 border-t pt-6 text-center">
+
+                            <p className="text-sm text-gray-500">
+                                Don't have a seller account?
+                            </p>
+
+                            <button
+                                onClick={() => navigate("/seller/register")}
+                                className="mt-2 text-sm font-medium text-[#1A4D2E] hover:underline"
+                            >
+                                Register
+                            </button>
+
+                            <p className="mt-6 text-xs text-gray-400">
+                                © 2026 BizBiteNow. All rights reserved.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </motion.div>
+        </div>
+    );
 };
 
 export default Login;
