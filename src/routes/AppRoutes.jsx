@@ -10,6 +10,7 @@ import Orders from "../pages/seller/Orders";
 import Products from "../pages/seller/Products";
 import Settings from "../pages/seller/Settings";
 import Earnings from "../pages/seller/Earnings";
+import Register from "../pages/seller/Register";
 
 const AppRoutes = () => {
   return (
@@ -21,6 +22,7 @@ const AppRoutes = () => {
         {/* Seller Authentication */}
         <Route path="/seller" element={<AuthLayout />}>
           <Route path="login" element={<Login />} />
+          <Route path="register" element={<Register />} />
         </Route>
 
         {/* Seller Dashboard */}
