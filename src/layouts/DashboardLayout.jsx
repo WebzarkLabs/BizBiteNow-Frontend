@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { Outlet } from "react-router-dom";
-import { Menu } from "lucide-react";
 
 import Sidebar from "../components/dashboard/Sidebar";
 import Navbar from "../components/dashboard/Navbar";
@@ -9,7 +8,7 @@ const DashboardLayout = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   return (
-    <div className="min-h-screen bg-gray-100 flex">
+    <div className="min-h-screen bg-gray-100">
 
       {/* Mobile Overlay */}
       {sidebarOpen && (
@@ -26,14 +25,14 @@ const DashboardLayout = () => {
           inset-y-0
           left-0
           z-50
-          w-64
-          bg-white
+          w-56
+          lg:w-64
           transform
           transition-transform
           duration-300
           ease-in-out
+          bg-transparent
           lg:translate-x-0
-          lg:fixed
           ${
             sidebarOpen
               ? "translate-x-0"
@@ -44,18 +43,13 @@ const DashboardLayout = () => {
         <Sidebar />
       </div>
 
-      {/* Main Content */}
-      <div className="flex flex-1 flex-col lg:ml-64">
+      {/* Main */}
+      <div className="lg:ml-64 min-h-screen flex flex-col">
 
-        
+        <Navbar
+          openSidebar={() => setSidebarOpen(true)}
+        />
 
-        {/* Desktop Navbar */}
-       
-          <Navbar 
-    openSidebar={() => setSidebarOpen(true)}
-         />
-
-        {/* Page Content */}
         <main className="flex-1 overflow-y-auto p-4 md:p-6">
           <Outlet />
         </main>

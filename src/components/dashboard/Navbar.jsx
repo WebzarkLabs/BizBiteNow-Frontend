@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import defaultAvatar from "../../assets/default-avatar.svg";
 import {
@@ -38,18 +38,48 @@ const Navbar = ({ openSidebar }) => {
     },
   ];
 
-  const [notifications, setNotifications] = useState(initialNotifications);
+const [showNotifications, setShowNotifications] = useState(false);
+const [showProfile, setShowProfile] = useState(false);
+const [notifications, setNotifications] = useState(initialNotifications);
+const notificationRef = useRef(null);
+const profileRef = useRef(null);
 
   const unreadCount = notifications.filter((n) => !n.read).length;
 
-  const markAllRead = () => {
-    setNotifications((prev) =>
-      prev.map((item) => ({
-        ...item,
-        read: true,
-      }))
+const markAllRead = () => {
+  setNotifications((prev) =>
+    prev.map((item) => ({
+      ...item,
+      read: true,
+    }))
+  );
+};
+useEffect(() => {
+  function handleClickOutside(e) {
+    if (
+      notificationRef.current &&
+      !notificationRef.current.contains(e.target)
+    ) {
+      setShowNotifications(false);
+    }
+
+    if (
+      profileRef.current &&
+      !profileRef.current.contains(e.target)
+    ) {
+      setShowProfile(false);
+    }
+  }
+
+  document.addEventListener("mousedown", handleClickOutside);
+
+  return () => {
+    document.removeEventListener(
+      "mousedown",
+      handleClickOutside
     );
   };
+}, []);
   return (
     <header className="sticky top-0 z-30 bg-white border-b border-gray-200 shadow-sm">
       <div className="flex items-center justify-between px-4 md:px-6 py-4 gap-3">
@@ -97,9 +127,16 @@ const Navbar = ({ openSidebar }) => {
 
           {/* Notification */}
 
-          <div className="relative group">
+          <div
+            ref={notificationRef}
+            className="relative"
+          >
 
             <button
+              onClick={() => {
+                setShowNotifications((prev) => !prev);
+                setShowProfile(false);
+              }}
               className="relative bg-gray-100 hover:bg-gray-200 p-2 md:p-2.5 rounded-xl transition"
             >
               <Bell size={20} className="text-gray-700" />
@@ -113,29 +150,29 @@ const Navbar = ({ openSidebar }) => {
 
             {/* Notification Preview */}
 
-            <div
-              className="
-              invisible
-              opacity-0
-              translate-y-3
-              group-hover:visible
-              group-hover:opacity-100
-              group-hover:translate-y-0
-              transition-all
-              duration-300
-              absolute
-              right-2 sm:right-0
-              mt-3
-              w-[90vw] max-w-sm md:w-80
-              rounded-3xl
-              bg-white
-              border
-              border-gray-100
-              shadow-2xl
-              overflow-hidden
-              z-50
-            "
-            >
+<div
+className={`
+absolute
+-right-15
+mt-3
+w-72
+md:w-80
+rounded-3xl
+bg-white
+border
+border-gray-100
+shadow-2xl
+overflow-hidden
+z-50
+transition-all
+duration-300
+${
+  showNotifications
+    ? "visible opacity-100 translate-y-0"
+    : "invisible opacity-0 translate-y-3"
+}
+`}
+>
 
               <div className="px-5 py-4 border-b bg-gray-50">
 
