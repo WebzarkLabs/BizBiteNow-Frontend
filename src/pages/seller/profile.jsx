@@ -11,7 +11,7 @@ import {
   LogOut,
   Edit3,
 } from "lucide-react";
-
+import { motion } from "framer-motion";
 import Card from "../../components/UI/Card";
 import Button from "../../components/UI/Button";
 import SectionTitle from "../../components/UI/SectionTitle";
@@ -27,6 +27,11 @@ const [profile, setProfile] = useState({
   address: "Ambala, Haryana",
 });
   return (
+    <motion.div
+  initial={{ opacity: 0, y: 15 }}
+  animate={{ opacity: 1, y: 0 }}
+  transition={{ duration: 0.4 }}
+>
     <div className="space-y-8">
 
       <SectionTitle
@@ -216,6 +221,7 @@ const [profile, setProfile] = useState({
       </div>
 
     </div>
+    </motion.div>
   );
 };
 

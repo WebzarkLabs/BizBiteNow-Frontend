@@ -5,7 +5,7 @@ import {
 
 import Card from "../../components/UI/Card";
 import SectionTitle from "../../components/UI/SectionTitle";
-
+import { motion } from "framer-motion";
 import StatCard from "../../components/dashboard/StatCard";
 import RecentOrders from "../../components/dashboard/RecentOrders";
 import TopProducts from "../../components/dashboard/TopProducts";
@@ -32,6 +32,11 @@ const Dashboard = () => {
     year: "numeric",
     });
   return (
+    <motion.div
+  initial={{ opacity: 0, y: 15 }}
+  animate={{ opacity: 1, y: 0 }}
+  transition={{ duration: 0.4 }}
+>
     <div className="space-y-8">
 
       {/* Welcome Banner */}
@@ -149,6 +154,7 @@ const Dashboard = () => {
       </div>
 
     </div>
+    </motion.div>
   );
 };
 

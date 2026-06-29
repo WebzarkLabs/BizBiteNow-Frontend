@@ -2,7 +2,7 @@ import { Settings as SettingsIcon, ShieldCheck } from "lucide-react";
 
 import Card from "../../components/UI/Card";
 import SectionTitle from "../../components/UI/SectionTitle";
-
+import { motion } from "framer-motion";
 import StoreInformation from "../../components/settings/StoreInformation";
 import StoreStatus from "../../components/settings/StoreStatus";
 import Branding from "../../components/settings/Branding";
@@ -11,6 +11,11 @@ import Security from "../../components/settings/Security";
 
 const Settings = () => {
   return (
+    <motion.div
+  initial={{ opacity: 0, y: 15 }}
+  animate={{ opacity: 1, y: 0 }}
+  transition={{ duration: 0.4 }}
+>
     <div className="space-y-8">
 
       {/* Hero Banner */}
@@ -94,6 +99,7 @@ const Settings = () => {
       <Security />
 
     </div>
+    </motion.div>
   );
 };
 
