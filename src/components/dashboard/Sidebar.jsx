@@ -7,6 +7,7 @@ import {
   IndianRupee,
   LogOut,
 } from "lucide-react";
+import logoWithIcon from "../../assets/BIZ BITE NOW Horizontal with Icon.png";
 
 const menuItems = [
   {
@@ -45,15 +46,15 @@ const Sidebar = () => {
   return (
     <aside className="fixed left-0 top-0 h-screen w-64 bg-[#1A4D2E] text-white shadow-xl z-50">
       {/* Logo */}
-      <div className="h-20 flex items-center justify-center border-b border-white/10">
-        <div>
-          <h1 className="text-2xl font-bold tracking-wide">
-            BizBiteNow
-          </h1>
-          <p className="text-xs text-gray-300 text-center">
-            Seller Dashboard
-          </p>
+      <div className="h-20 flex flex-col items-center justify-center border-b border-white/10 px-4 gap-1">
+        <div className="bg-white rounded-xl px-3 py-1.5">
+          <img
+            src={logoWithIcon}
+            alt="BizBiteNow"
+            className="h-8 object-contain"
+          />
         </div>
+        <p className="text-xs text-gray-300 tracking-wide">Seller Dashboard</p>
       </div>
 
       {/* Navigation */}

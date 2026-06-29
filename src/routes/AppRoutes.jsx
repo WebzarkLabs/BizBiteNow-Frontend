@@ -2,6 +2,7 @@ import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 
 import AuthLayout from "../layouts/AuthLayout";
 import DashboardLayout from "../layouts/DashboardLayout";
+import CustomerLayout from "../layouts/CustomerLayout";
 
 // Seller Pages
 import Login from "../pages/seller/Login";
@@ -13,10 +14,28 @@ import Earnings from "../pages/seller/Earnings";
 import Register from "../pages/seller/Register";
 import Profile from "../pages/seller/profile";
 
+import StoreFront from "../pages/customer/StoreFront";
+import ProductDetail from "../pages/customer/ProductDetail";
+import Cart from "../pages/customer/Cart";
+import Checkout from "../pages/customer/Checkout";
+import OrderConfirmation from "../pages/customer/OrderConfirmation";
+
 const AppRoutes = () => {
   return (
     <BrowserRouter>
       <Routes>
+        {/* Customer Storefront */}
+        <Route path="/" element={<CustomerLayout />}>
+          <Route index element={<StoreFront />} />
+          <Route path="product/:id" element={<ProductDetail />} />
+          <Route path="cart" element={<Cart />} />
+          <Route path="checkout" element={<Checkout />} />
+          <Route path="order/:id" element={<OrderConfirmation />} />
+        </Route>
+
+        {/* Seller Dashboard */}
+        <Route path="/dashboard" element={<DashboardLayout />} />
+        <Route index element={<Dashboard />} />
         {/* Redirect */}
         <Route path="/" element={<Navigate to="/seller/login" replace />} />
 
