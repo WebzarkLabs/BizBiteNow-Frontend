@@ -11,6 +11,7 @@ import Products from "../pages/seller/Products";
 import Settings from "../pages/seller/Settings";
 import Earnings from "../pages/seller/Earnings";
 import Register from "../pages/seller/Register";
+import Profile from "../pages/seller/profile";
 
 const AppRoutes = () => {
   return (
@@ -32,6 +33,7 @@ const AppRoutes = () => {
           <Route path="products" element={<Products />} />
           <Route path="settings" element={<Settings />} />
           <Route path="earnings" element={<Earnings />} />
+          <Route path= "profile" element={<Profile/>}/>
         </Route>
 
         {/* 404 */}
