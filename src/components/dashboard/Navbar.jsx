@@ -1,8 +1,15 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import defaultAvatar from "../../assets/default-avatar.svg";
-import { Bell, Search, UserCircle2, Mail, ShieldCheck, Check } from "lucide-react";
-const Navbar = () => {
+import {
+  Bell,
+  Search,
+  Mail,
+  ShieldCheck,
+  Check,
+  Menu,
+} from "lucide-react";
+const Navbar = ({ openSidebar }) => {
   const navigate = useNavigate();
   const initialNotifications = [
     {
@@ -45,25 +52,35 @@ const Navbar = () => {
   };
   return (
     <header className="sticky top-0 z-30 bg-white border-b border-gray-200 shadow-sm">
-      <div className="flex items-center justify-between px-6 py-4">
+      <div className="flex items-center justify-between px-4 md:px-6 py-4 gap-3">
 
         {/* Left */}
-        <div>
-          <h2 className="text-2xl font-bold text-gray-800">
+        <div className="flex items-center gap-3 flex-1 min-w-0">
+
+  <button
+    onClick={openSidebar}
+    className="lg:hidden rounded-lg p-2 hover:bg-gray-100 transition"
+  >
+    <Menu size={22} />
+  </button>
+
+  <div className="min-w-0">
+          <h2 className="text-lg sm:text-xl lg:text-2xl font-bold text-gray-800">
             Seller Dashboard
           </h2>
 
-          <p className="text-sm text-gray-500">
+          <p className="hidden md:block text-sm text-gray-500">
             Welcome back! Manage your store efficiently.
           </p>
         </div>
+        </div>
 
         {/* Right */}
-        <div className="flex items-center gap-4">
+       <div className="flex items-center gap-2 sm:gap-4 flex-shrink-0">
 
           {/* Search */}
 
-          <div className="hidden md:flex items-center bg-gray-100 rounded-xl px-3 py-2 w-72">
+          <div className="hidden lg:flex items-center bg-gray-100 rounded-xl px-3 py-2 w-72">
 
             <Search
               className="text-gray-400"
@@ -73,7 +90,7 @@ const Navbar = () => {
             <input
               type="text"
               placeholder="Search..."
-              className="bg-transparent outline-none text-sm ml-2 w-full"
+              className="bg-transparent outline-none text-sm ml-2 w-full min-w-0"
             />
 
           </div>
@@ -83,7 +100,7 @@ const Navbar = () => {
           <div className="relative group">
 
             <button
-              className="relative bg-gray-100 hover:bg-gray-200 p-2 rounded-xl transition"
+              className="relative bg-gray-100 hover:bg-gray-200 p-2 md:p-2.5 rounded-xl transition"
             >
               <Bell size={20} className="text-gray-700" />
 
@@ -107,9 +124,9 @@ const Navbar = () => {
               transition-all
               duration-300
               absolute
-              right-0
+              right-2 sm:right-0
               mt-3
-              w-80
+              w-[90vw] max-w-sm md:w-80
               rounded-3xl
               bg-white
               border
@@ -182,13 +199,13 @@ const Navbar = () => {
 
             <button
               onClick={() => navigate("/seller/profile")}
-              className="flex items-center gap-3 rounded-xl p-2 hover:bg-gray-100 transition"
+              className="flex items-center gap-2 rounded-xl p-1.5 md:p-2 hover:bg-gray-100 transition"
             >
 
               <img
                 src={defaultAvatar}
                 alt="Seller"
-                className="h-11 w-11 rounded-full object-cover border-2 border-green-600"
+                className="h-10 w-10 md:h-11 md:w-11 rounded-full object-cover border-2 border-green-600"
               />
 
               <div className="hidden md:block text-left">
@@ -220,7 +237,7 @@ const Navbar = () => {
                 absolute
                 right-0
                 mt-2
-                w-72
+                w-[90vw] max-w-xs md:w-72
                 rounded-3xl
                 bg-white
                 shadow-2xl
