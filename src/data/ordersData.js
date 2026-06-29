@@ -7,8 +7,7 @@ export const dummyOrders = [
     total: 5000,
     status: "NEW",
     paymentMethod: "COD",
-    createdAt: "2026-06-28T10:30:00",
-
+    createdAt: "2026-06-29T10:30:00",
     items: [
       {
         productId: 101,
@@ -20,19 +19,14 @@ export const dummyOrders = [
           sellingPrice: 5000,
           unit: "1 pcs",
           description: "Black Silk Saree",
-          imageUrl:
-            "https://images.unsplash.com/photo-1610030469983-98e550d6193c?w=600",
+          imageUrl: "https://images.unsplash.com/photo-1610030469983-98e550d6193c?w=600",
           categoryId: 101,
           categoryName: "Saree",
-          extraDetails: {
-            Fabric: "Silk",
-            Type: "Women Wear",
-          },
+          extraDetails: { Fabric: "Silk", Type: "Women Wear" },
         },
       },
     ],
   },
-
   {
     id: 2,
     customerName: "Priya Verma",
@@ -41,8 +35,7 @@ export const dummyOrders = [
     total: 2500,
     status: "NEW",
     paymentMethod: "Online",
-    createdAt: "2026-06-28T11:15:00",
-
+    createdAt: "2026-06-29T11:15:00",
     items: [
       {
         productId: 102,
@@ -54,19 +47,14 @@ export const dummyOrders = [
           sellingPrice: 2500,
           unit: "1 pcs",
           description: "Blue Printed Cotton Kurti",
-          imageUrl:
-            "https://images.unsplash.com/photo-1529139574466-a303027c1d8b?w=600",
+          imageUrl: "https://images.unsplash.com/photo-1529139574466-a303027c1d8b?w=600",
           categoryId: 102,
           categoryName: "Kurti",
-          extraDetails: {
-            Fabric: "Cotton",
-            Type: "Women Wear",
-          },
+          extraDetails: { Fabric: "Cotton", Type: "Women Wear" },
         },
       },
     ],
   },
-
   {
     id: 3,
     customerName: "Ankit Singh",
@@ -75,8 +63,7 @@ export const dummyOrders = [
     total: 7200,
     status: "DELIVERED",
     paymentMethod: "COD",
-    createdAt: "2026-06-28T09:20:00",
-
+    createdAt: "2026-06-29T09:20:00",
     items: [
       {
         productId: 103,
@@ -88,19 +75,14 @@ export const dummyOrders = [
           sellingPrice: 3600,
           unit: "1 pcs",
           description: "Slim Fit Black Blazer",
-          imageUrl:
-            "https://images.unsplash.com/photo-1593030761757-71fae45fa0e7?w=600",
+          imageUrl: "https://images.unsplash.com/photo-1593030761757-71fae45fa0e7?w=600",
           categoryId: 103,
           categoryName: "Blazer",
-          extraDetails: {
-            Fabric: "Polyester",
-            Type: "Men Wear",
-          },
+          extraDetails: { Fabric: "Polyester", Type: "Men Wear" },
         },
       },
     ],
   },
-
   {
     id: 4,
     customerName: "Sneha Patil",
@@ -109,8 +91,7 @@ export const dummyOrders = [
     total: 1800,
     status: "DELIVERED",
     paymentMethod: "Online",
-    createdAt: "2026-06-28T08:40:00",
-
+    createdAt: "2026-06-29T08:40:00",
     items: [
       {
         productId: 104,
@@ -122,19 +103,14 @@ export const dummyOrders = [
           sellingPrice: 900,
           unit: "1 pcs",
           description: "Oversized Cotton T-Shirt",
-          imageUrl:
-            "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=600",
+          imageUrl: "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=600",
           categoryId: 104,
           categoryName: "T-Shirts",
-          extraDetails: {
-            Fabric: "Cotton",
-            Type: "Women Wear",
-          },
+          extraDetails: { Fabric: "Cotton", Type: "Women Wear" },
         },
       },
     ],
   },
-
   {
     id: 5,
     customerName: "Vikram Joshi",
@@ -143,8 +119,7 @@ export const dummyOrders = [
     total: 6400,
     status: "NEW",
     paymentMethod: "COD",
-    createdAt: "2026-06-28T12:00:00",
-
+    createdAt: "2026-06-29T12:00:00",
     items: [
       {
         productId: 105,
@@ -156,14 +131,150 @@ export const dummyOrders = [
           sellingPrice: 6400,
           unit: "1 pcs",
           description: "Premium Brown Leather Jacket",
-          imageUrl:
-            "https://images.unsplash.com/photo-1523398002811-999ca8dec234?w=600",
+          imageUrl: "https://images.unsplash.com/photo-1523398002811-999ca8dec234?w=600",
           categoryId: 105,
           categoryName: "Jackets",
-          extraDetails: {
-            Fabric: "Leather",
-            Type: "Men Wear",
-          },
+          extraDetails: { Fabric: "Leather", Type: "Men Wear" },
+        },
+      },
+    ],
+  },
+  {
+    id: 6,
+    customerName: "Neha Kapoor",
+    phone: "9898765432",
+    address: "Dadar East, Mumbai",
+    total: 3200,
+    status: "NEW",
+    paymentMethod: "Online",
+    createdAt: "2026-06-29T13:45:00",
+    items: [
+      {
+        productId: 106,
+        quantity: 1,
+        product: {
+          name: "Designer Lehenga",
+          price: 3200,
+          mrp: 4500,
+          sellingPrice: 3200,
+          unit: "1 pcs",
+          description: "Pink Festive Lehenga",
+          imageUrl: "https://images.unsplash.com/photo-1594576834341-5f0c1c3f3f3f?w=600",
+          categoryId: 106,
+          categoryName: "Lehenga",
+          extraDetails: { Fabric: "Georgette", Type: "Women Wear" },
+        },
+      },
+    ],
+  },
+  {
+    id: 7,
+    customerName: "Arjun Mehta",
+    phone: "9765432109",
+    address: "Goregaon West, Mumbai",
+    total: 4500,
+    status: "SHIPPED",
+    paymentMethod: "COD",
+    createdAt: "2026-06-29T07:30:00",
+    items: [
+      {
+        productId: 107,
+        quantity: 1,
+        product: {
+          name: "Formal Shirt",
+          price: 4500,
+          mrp: 5500,
+          sellingPrice: 4500,
+          unit: "1 pcs",
+          description: "White Oxford Formal Shirt",
+          imageUrl: "https://images.unsplash.com/photo-1604176354201-9268730608-1c4b1b1b1b1b?w=600",
+          categoryId: 107,
+          categoryName: "Shirts",
+          extraDetails: { Fabric: "Cotton", Type: "Men Wear" },
+        },
+      },
+    ],
+  },
+  {
+    id: 8,
+    customerName: "Meera Nair",
+    phone: "9345678901",
+    address: "Kandivali East, Mumbai",
+    total: 1350,
+    status: "DELIVERED",
+    paymentMethod: "Online",
+    createdAt: "2026-06-29T14:20:00",
+    items: [
+      {
+        productId: 108,
+        quantity: 3,
+        product: {
+          name: "Yoga Pants",
+          price: 450,
+          mrp: 699,
+          sellingPrice: 450,
+          unit: "1 pcs",
+          description: "High Waist Yoga Leggings",
+          imageUrl: "https://images.unsplash.com/photo-1506629905582-4c9b4e6c5e3d?w=600",
+          categoryId: 108,
+          categoryName: "Activewear",
+          extraDetails: { Fabric: "Spandex", Type: "Women Wear" },
+        },
+      },
+    ],
+  },
+  {
+    id: 9,
+    customerName: "Rohan Deshmukh",
+    phone: "9123456780",
+    address: "Chembur, Mumbai",
+    total: 8900,
+    status: "NEW",
+    paymentMethod: "COD",
+    createdAt: "2026-06-29T15:10:00",
+    items: [
+      {
+        productId: 109,
+        quantity: 1,
+        product: {
+          name: "Gaming Laptop Bag",
+          price: 8900,
+          mrp: 10999,
+          sellingPrice: 8900,
+          unit: "1 pcs",
+          description: "Waterproof Laptop Backpack",
+          imageUrl: "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=600",
+          categoryId: 109,
+          categoryName: "Bags",
+          extraDetails: { Material: "Polyester", Type: "Unisex" },
+        },
+      },
+    ],
+  },
+  {
+    id: 10,
+    customerName: "Kavya Iyer",
+    phone: "9876540987",
+    address: "Bandra West, Mumbai",
+    total: 2100,
+    status: "SHIPPED",
+    paymentMethod: "Online",
+    createdAt: "2026-06-29T16:05:00",
+    items: [
+      {
+        productId: 110,
+        quantity: 1,
+        product: {
+          name: "Ethnic Kurta Set",
+          price: 2100,
+          mrp: 2800,
+          sellingPrice: 2100,
+          unit: "1 set",
+          description: "Beige Cotton Kurta with Pants",
+          imageUrl: "https://images.unsplash.com/photo-1585487000160-6eb1deb1a9c6?w=600",
+          categoryId: 110,
+          categoryName: "Kurta Set",
+          extraDetails: { Fabric: "Cotton", Type: "Women Wear" },
         },
       },
     ],

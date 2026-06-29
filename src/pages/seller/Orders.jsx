@@ -3,6 +3,9 @@ import OrderTabs from "../../components/UI/OrdersTab";
 import OrderGrid from "../../components/UI/OrderGrid";
 import useOrders from "../../hooks/useOrders";
 import LoadingOrderCard from "../../components/UI/LoadingCard";
+import OrderCard from "../../components/UI/OrderCard";
+
+import PaginatedList from "../../components/UI/Pagination";
 
 const Orders = () => {
   const [activeTab, setActiveTab] = useState("new");
@@ -27,10 +30,7 @@ const Orders = () => {
       return order.status === "NEW";
     }
 
-    return (
-      order.status === "DELIVERED" &&
-      isToday(order.createdAt)
-    );
+    return order.status === "DELIVERED" && isToday(order.createdAt);
   });
 
   if (loading) {
@@ -49,16 +49,25 @@ const Orders = () => {
 
   return (
     <div className="mx-auto max-w-7xl p-6">
-      <OrderTabs
-        activeTab={activeTab}
-        setActiveTab={setActiveTab}
-      />
+      <OrderTabs activeTab={activeTab} setActiveTab={setActiveTab} />
+      <div className="mt-6">
+        <PaginatedList
+          data={filteredOrders}
+          renderItem={(order) => (
+            <OrderCard
+              order={order}
+              activeTab={activeTab}
+              markAsDelivered={markAsDelivered}
+            />
+          )}
+        />
+      </div>
 
-      <OrderGrid
+      {/* <OrderGrid
         orders={filteredOrders}
         activeTab={activeTab}
         markAsDelivered={markAsDelivered}
-      />
+      /> */}
     </div>
   );
 };

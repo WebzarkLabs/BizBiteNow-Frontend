@@ -70,6 +70,17 @@ const useOrders = () => {
     fetchOrders();
   }, []);
 
+  // total earnings of today
+  const todaysEarnings = orders
+  .filter(
+    (order) =>
+      order.paymentMethod === "COD" &&
+      order.status === "DELIVERED" &&
+      new Date(order.createdAt).toDateString() ===
+        new Date().toDateString()
+  )
+  .reduce((sum, order) => sum + order.total, 0);
+
   return {
     orders,
     loading,
@@ -77,6 +88,7 @@ const useOrders = () => {
     fetchOrders,
     markAsDelivered,
     handleCancelOrder,
+    todaysEarnings
   };
 };
 
