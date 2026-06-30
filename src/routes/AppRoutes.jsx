@@ -12,9 +12,7 @@ import Products from "../pages/seller/Products";
 import Settings from "../pages/seller/Settings";
 import Earnings from "../pages/seller/Earnings";
 import Register from "../pages/seller/Register";
-<<<<<<< HEAD
 import Profile from "../pages/seller/profile";
-
 import StoreFront from "../pages/customer/StoreFront";
 import ProductDetail from "../pages/customer/ProductDetail";
 import Cart from "../pages/customer/Cart";
@@ -22,9 +20,8 @@ import Checkout from "../pages/customer/Checkout";
 import OrderConfirmation from "../pages/customer/OrderConfirmation";
 import CustomerRegister from "../pages/customer/Register";
 import CustomerProfile from "../pages/customer/Profile";
-=======
 import OrderDetails from "../pages/seller/OrderDetails";
->>>>>>> dad8f21 (Add order details page and improve orders module)
+
 
 const AppRoutes = () => {
   return (
