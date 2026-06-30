@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import {
   User,
   Mail,
@@ -15,10 +15,12 @@ import { motion } from "framer-motion";
 import Card from "../../components/UI/Card";
 import Button from "../../components/UI/Button";
 import SectionTitle from "../../components/UI/SectionTitle";
+import defaultAvatar from "../../assets/default-avatar.svg";
 
 const Profile = () => {
     const [isEditing, setIsEditing] = useState(false);
-
+    const [profileImage, setProfileImage] = useState(defaultAvatar);
+    const fileInputRef = useRef(null);
 const [profile, setProfile] = useState({
   name: "Seller Name",
   email: "seller@bizbitenow.com",
@@ -48,16 +50,31 @@ const [profile, setProfile] = useState({
           <div className="flex flex-col items-center">
 
             <div className="relative">
-
               <img
-                src="https://ui-avatars.com/api/?name=Seller&background=1A4D2E&color=fff&size=256"
-                alt="Seller"
+                src={profileImage}
+                alt="Profile"
                 className="h-36 w-36 rounded-full object-cover border-4 border-green-100"
               />
 
-              <button className="absolute bottom-1 right-1 h-10 w-10 rounded-full bg-green-700 text-white flex items-center justify-center hover:bg-green-800 transition">
+              <button
+                onClick={() => fileInputRef.current.click()}
+                className="absolute bottom-1 right-1 h-10 w-10 rounded-full bg-green-700 text-white flex items-center justify-center hover:bg-green-800 transition"
+              >
                 <Camera size={18} />
               </button>
+              <input
+                ref={fileInputRef}
+                type="file"
+                accept="image/*"
+                hidden
+                onChange={(e) => {
+                  const file = e.target.files[0];
+
+                  if (!file) return;
+
+                  setProfileImage(URL.createObjectURL(file));
+                }}
+              />
 
             </div>
 
