@@ -10,7 +10,11 @@ import {
 } from "lucide-react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-
+import {
+  sendOTP,
+  verifyOTP,
+  registerSeller,
+} from "../../services/sellerAuth";
 import logo from "../../assets/branding/BIZ BITE NOW Horizontal Complete.png";
 import logo1 from "../../assets/branding/BIZBITENOW Vertical Complete1.png";
 import { motion } from "framer-motion";
@@ -19,6 +23,9 @@ const Register = () => {
 
     const [showPassword, setShowPassword] = useState(false);
     const [agreeTerms, setAgreeTerms] = useState(false);
+    const [showOTPModal, setShowOTPModal] = useState(false);
+    const [otp, setOtp] = useState("");
+    const demoOTP = "123456";
     const [form, setForm] = useState({
         ownerName: "",
         businessName: "",
@@ -34,7 +41,7 @@ const Register = () => {
         setForm({ ...form, [e.target.name]: e.target.value });
     };
 
-        const handleRegister = (e) => {
+        const handleRegister = async (e) => {
             e.preventDefault();
 
             if (!agreeTerms) {
@@ -46,14 +53,39 @@ const Register = () => {
                 alert("Passwords do not match");
                 return;
             }
+            // use this for real api
+            // try {
+            // await sendOTP(form.email);
 
-            alert("Seller Registration Successful");
-
-            navigate("/seller/login");
+            // setShowOTPModal(true);
+            // } catch (err) {
+            // alert("Unable to send OTP.");
+            // }
+            setShowOTPModal(true);  //this is for demo
         };
     const inputStyle =
         "w-full rounded-xl border border-gray-300 bg-gray-50 py-3.5 pl-12 pr-4 outline-none transition-all duration-300 focus:border-[#1A4D2E] focus:ring-4 focus:ring-green-100";
+    const handleVerifyOTP = async () => {
+    // Frontend demo mode
+    if (import.meta.env.DEV) {
+        if (otp === "123456") {
+        navigate("/seller/dashboard");
+        } else {
+        alert("Invalid OTP");
+        }
+        return;
+    }
 
+    // Production mode
+    // try {
+    //     await verifyOTP(form.email, otp);
+    //     await registerSeller(form);
+
+    //     navigate("/seller/dashboard");
+    // } catch (err) {
+    //     alert("Invalid OTP");
+    // }
+    };
     return (
         <div className="relative min-h-screen overflow-hidden bg-[#16522d] flex items-center justify-center p-6">
 
@@ -100,7 +132,59 @@ const Register = () => {
                     background: "rgba(255,199,0,0.45)",
                     filter: "blur(90px)",
                 }}
+                
             />
+            {showOTPModal && (
+                <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4">
+                    <div className="w-full max-w-md rounded-3xl bg-white p-8 shadow-2xl">
+
+                    <h2 className="text-3xl font-bold text-center">
+                        Verify OTP
+                    </h2>
+
+                    <p className="mt-3 text-center text-gray-500">
+                    We've sent a 6-digit verification code to your registered email.
+                    </p>
+
+                    <p className="mt-2 text-center font-semibold text-[#1A4D2E] break-all">
+                    {form.email}
+                    </p>
+
+                    <input
+                        type="text"
+                        maxLength={6}
+                        value={otp}
+                        onChange={(e) => setOtp(e.target.value)}
+                        placeholder="Enter OTP"
+                        className="mt-8 w-full rounded-xl border border-gray-300 py-4 text-center text-2xl tracking-[12px] outline-none focus:border-[#1A4D2E] focus:ring-4 focus:ring-green-100"
+                    />
+
+                    {import.meta.env.DEV && (
+                    <p className="mt-4 text-center text-xs text-gray-400">
+                        Development OTP: <span className="font-semibold">123456</span>
+                    </p>
+                    )}
+
+                    <button
+                        onClick={handleVerifyOTP}
+                        className="mt-8 w-full rounded-xl bg-gradient-to-r from-[#1A4D2E] to-[#2D6A4F] py-4 font-semibold text-white"
+                    >
+                        Verify OTP
+                    </button>
+
+                    <button
+                        onClick={() => {
+                        setShowOTPModal(false);
+                        setOtp("");
+                        }}
+                        className="mt-3 w-full rounded-xl border border-gray-300 py-3 font-medium"
+                    >
+                        Cancel
+                    </button>
+
+                    </div>
+                </div>
+                )}
             <motion.div
                 initial={{ opacity: 0, x: 80 }}
                 animate={{ opacity: 1, x: 0 }}
