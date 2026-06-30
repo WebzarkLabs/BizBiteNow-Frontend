@@ -1,4 +1,6 @@
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
+import { useState } from "react";
+
 import {
   LayoutDashboard,
   ShoppingBag,
@@ -6,6 +8,8 @@ import {
   Settings,
   IndianRupee,
   LogOut,
+  Palette,
+  Type,
 } from "lucide-react";
 import logoWithIcon from "../../assets/BIZ BITE NOW Horizontal with Icon.png";
 
@@ -37,7 +41,9 @@ const menuItems = [
   },
 ];
 
-const Sidebar = () => {
+const Sidebar = ({ openProModal }) => {
+  const navigate = useNavigate();
+
   const handleLogout = () => {
     localStorage.removeItem("sellerAuth");
     window.location.href = "/seller/login";
@@ -81,6 +87,79 @@ const Sidebar = () => {
           );
         })}
       </nav>
+      {/* Mobile Premium Features */}
+
+<div className="lg:hidden px-4 pb-4 space-y-3">
+
+  <button
+    onClick={openProModal}
+    className="
+      relative
+      w-full
+      overflow-hidden
+      rounded-xl
+      bg-gradient-to-r
+      from-violet-600
+      via-fuchsia-500
+      to-pink-500
+      bg-[length:200%_200%]
+      animate-gradient
+      px-4
+      py-3
+      text-white
+      font-semibold
+      shadow-lg
+      transition
+      hover:scale-[1.02]
+    "
+  >
+    <div className="flex items-center justify-between">
+      <div className="flex items-center gap-3">
+        <Palette size={20} />
+        Theme Colors
+      </div>
+
+      <span className="rounded-full bg-yellow-300 px-2 py-0.5 text-[10px] font-bold text-black animate-pulse">
+        PRO
+      </span>
+    </div>
+  </button>
+
+  <button
+    onClick={openProModal}
+    className="
+      relative
+      w-full
+      overflow-hidden
+      rounded-xl
+      bg-gradient-to-r
+      from-blue-600
+      via-cyan-500
+      to-teal-500
+      bg-[length:200%_200%]
+      animate-gradient
+      px-4
+      py-3
+      text-white
+      font-semibold
+      shadow-lg
+      transition
+      hover:scale-[1.02]
+    "
+  >
+    <div className="flex items-center justify-between">
+      <div className="flex items-center gap-3">
+        <Type size={20} />
+        Font Styles
+      </div>
+
+      <span className="rounded-full bg-yellow-300 px-2 py-0.5 text-[10px] font-bold text-black animate-pulse">
+        PRO
+      </span>
+    </div>
+  </button>
+
+</div>
 
       {/* Logout */}
       <div className="p-4 border-t border-white/10">
@@ -92,6 +171,7 @@ const Sidebar = () => {
           Logout
         </button>
       </div>
+
     </aside>
   );
 };
