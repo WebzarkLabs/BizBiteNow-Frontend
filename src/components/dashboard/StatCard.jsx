@@ -28,13 +28,13 @@ const StatCard = ({ title, value, change, color }) => {
     <Card className="relative overflow-hidden">
       <div className="absolute -right-8 -top-8 w-32 h-32 rounded-full bg-gradient-to-br from-white/40 to-transparent" />
 
-      <div className="flex justify-between items-start relative z-10">
+      <div className="relative z-10 flex items-start justify-between gap-4">
         <div>
-          <p className="text-gray-500 text-sm">
+          <p className="text-xs sm:text-sm text-gray-500">
             {title}
           </p>
 
-          <h2 className="text-4xl font-bold mt-3 text-gray-800">
+          <h2 className="mt-2 md:mt-3 text-3xl md:text-4xl font-bold text-gray-800 break-words">
             {value}
           </h2>
 

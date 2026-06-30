@@ -5,7 +5,7 @@ import {
 
 import Card from "../../components/UI/Card";
 import SectionTitle from "../../components/UI/SectionTitle";
-
+import { motion } from "framer-motion";
 import StatCard from "../../components/dashboard/StatCard";
 import RecentOrders from "../../components/dashboard/RecentOrders";
 import TopProducts from "../../components/dashboard/TopProducts";
@@ -32,7 +32,12 @@ const Dashboard = () => {
     year: "numeric",
     });
   return (
-    <div className="space-y-8">
+    <motion.div
+  initial={{ opacity: 0, y: 15 }}
+  animate={{ opacity: 1, y: 0 }}
+  transition={{ duration: 0.4 }}
+>
+   <div className="space-y-6 md:space-y-8">
 
       {/* Welcome Banner */}
 
@@ -44,35 +49,35 @@ const Dashboard = () => {
 
         <div className="absolute -bottom-20 -left-20 w-72 h-72 rounded-full bg-white/5 blur-3xl"></div>
 
-        <div className="relative flex flex-col lg:flex-row justify-between gap-8">
+        <div className="relative flex flex-col lg:flex-row lg:items-center justify-between gap-6 lg:gap-8">
 
           <div>
 
-            <div className="flex items-center gap-3 mb-5">
+            <div className="flex flex-col sm:flex-row sm:items-center gap-3 mb-5">
 
-              <Store size={34} />
+              <Store className="w-7 h-7 md:w-9 md:h-9" />
 
-                <h1 className="text-4xl font-bold">
+                <h1 className="text-3xl md:text-4xl font-bold leading-tight">
                 {greeting} 👋
                 </h1>
-                <p className="text-green-100 mt-2">
+                <p className="text-green-100 text-sm md:text-base">
                 {today}
                 </p>
 
             </div>
 
-            <h2 className="text-2xl font-semibold">
+            <h2 className="text-xl md:text-2xl font-semibold">
               Welcome back, Seller
             </h2>
 
-            <p className="text-green-100 mt-3 max-w-2xl leading-7">
+            <p className="mt-3 max-w-2xl text-green-100 text-sm md:text-base leading-6 md:leading-7">
               Manage your products, orders and customers from one
               place. Here's today's overview of your business.
             </p>
 
           </div>
 
-          <div className="flex flex-col justify-center">
+          <div className="w-full lg:w-auto flex justify-start lg:justify-center">
 
             <div className="bg-white/15 backdrop-blur-lg rounded-2xl p-5 border border-white/20">
 
@@ -86,7 +91,7 @@ const Dashboard = () => {
                     Store Status
                   </p>
 
-                  <h3 className="text-xl font-bold">
+                  <h3 className="text-lg md:text-xl font-bold">
                     Active
                   </h3>
 
@@ -109,7 +114,7 @@ const Dashboard = () => {
         subtitle="Track your store performance at a glance."
       />
 
-      <div className="grid gap-6 sm:grid-cols-2 xl:grid-cols-4">
+      <div className="grid gap-4 md:gap-6 sm:grid-cols-2 xl:grid-cols-4">
 
         {stats.map((item) => (
           <StatCard
@@ -122,7 +127,7 @@ const Dashboard = () => {
 
       {/* Middle Section */}
 
-      <div className="grid xl:grid-cols-3 gap-6">
+      <div className="grid xl:grid-cols-3 gap-4 md:gap-6">
 
         <div className="xl:col-span-2">
 
@@ -136,7 +141,7 @@ const Dashboard = () => {
 
       {/* Bottom */}
 
-      <div className="grid xl:grid-cols-3 gap-6">
+      <div className="grid xl:grid-cols-3 gap-4 md:gap-6">
 
         <div className="xl:col-span-2">
 
@@ -149,6 +154,7 @@ const Dashboard = () => {
       </div>
 
     </div>
+    </motion.div>
   );
 };
 

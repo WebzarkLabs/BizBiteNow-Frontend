@@ -12,6 +12,7 @@ import Products from "../pages/seller/Products";
 import Settings from "../pages/seller/Settings";
 import Earnings from "../pages/seller/Earnings";
 import Register from "../pages/seller/Register";
+import Profile from "../pages/seller/profile";
 
 import StoreFront from "../pages/customer/StoreFront";
 import ProductDetail from "../pages/customer/ProductDetail";
@@ -55,6 +56,7 @@ const AppRoutes = () => {
           <Route path="products" element={<Products />} />
           <Route path="settings" element={<Settings />} />
           <Route path="earnings" element={<Earnings />} />
+          <Route path= "profile" element={<Profile/>}/>
         </Route>
 
         {/* 404 */}

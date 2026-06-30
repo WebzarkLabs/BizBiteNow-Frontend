@@ -2,7 +2,7 @@ export const stats = [
   {
     id: 1,
     title: "Total Revenue",
-    value: "₹1,24,580",
+    value: "₹21,245,800",
     change: "+12.5%",
     color: "green",
   },
