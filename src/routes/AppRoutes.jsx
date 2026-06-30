@@ -18,6 +18,8 @@ import ProductDetail from "../pages/customer/ProductDetail";
 import Cart from "../pages/customer/Cart";
 import Checkout from "../pages/customer/Checkout";
 import OrderConfirmation from "../pages/customer/OrderConfirmation";
+import CustomerRegister from "../pages/customer/Register";
+import CustomerProfile from "../pages/customer/Profile";
 
 const AppRoutes = () => {
   return (
@@ -30,6 +32,8 @@ const AppRoutes = () => {
           <Route path="cart" element={<Cart />} />
           <Route path="checkout" element={<Checkout />} />
           <Route path="order/:id" element={<OrderConfirmation />} />
+          <Route path="customer/register" element={<CustomerRegister />} />
+          <Route path="customer/profile" element={<CustomerProfile />} />
         </Route>
 
         {/* Seller Dashboard */}
