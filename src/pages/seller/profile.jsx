@@ -1,4 +1,10 @@
 import { useRef, useState } from "react";
+import { useEffect } from "react";
+import {
+    getMyProfile,
+    updateProfile,
+    deleteProfile,
+} from "../../services/sellerProfile";
 import {
   User,
   Mail,
@@ -21,13 +27,27 @@ const Profile = () => {
     const [isEditing, setIsEditing] = useState(false);
     const [profileImage, setProfileImage] = useState(defaultAvatar);
     const fileInputRef = useRef(null);
-const [profile, setProfile] = useState({
-  name: "Seller Name",
-  email: "seller@bizbitenow.com",
-  phone: "+91 9876543210",
-  restaurant: "BizBite Cafe",
-  address: "Ambala, Haryana",
-});
+    const [profile, setProfile] = useState(null);
+    useEffect(() => {
+    loadProfile();
+}, []);
+
+const loadProfile = async () => {
+    try {
+        const res = await getMyProfile();
+
+        setProfile(res.data);
+    } catch (err) {
+        console.log(err);
+    }
+};
+if (!profile) {
+    return (
+        <div className="p-10 text-center">
+            Loading...
+        </div>
+    );
+}
   return (
     <motion.div
   initial={{ opacity: 0, y: 15 }}

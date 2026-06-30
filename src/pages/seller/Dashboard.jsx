@@ -2,7 +2,9 @@ import {
   Store,
   Sparkles,
 } from "lucide-react";
-
+import { Lock } from "lucide-react";
+import ProFeatureModal from "../../components/UI/ProFeatureModal";
+import { useState } from "react";
 import Card from "../../components/UI/Card";
 import SectionTitle from "../../components/UI/SectionTitle";
 import { motion } from "framer-motion";
@@ -25,6 +27,7 @@ const getGreeting = () => {
 
 const Dashboard = () => {
     const greeting = getGreeting();
+    const [showProModal, setShowProModal] = useState(false);
     const today = new Date().toLocaleDateString("en-IN", {
     weekday: "long",
     day: "numeric",
@@ -114,28 +117,101 @@ const Dashboard = () => {
         subtitle="Track your store performance at a glance."
       />
 
-      <div className="grid gap-4 md:gap-6 sm:grid-cols-2 xl:grid-cols-4">
+<div className="relative">
+
+    <div className="grid gap-4 md:gap-6 sm:grid-cols-2 xl:grid-cols-4 blur-[5px] pointer-events-none opacity-70">
 
         {stats.map((item) => (
-          <StatCard
-            key={item.id}
-            {...item}
-          />
+            <StatCard
+                key={item.id}
+                {...item}
+            />
         ))}
 
-      </div>
+    </div>
+
+    <div className="absolute inset-0 flex items-center justify-center">
+
+        <button
+            onClick={() => setShowProModal(true)}
+            className="rounded-2xl bg-white/95 px-6 py-4 shadow-xl border border-yellow-300 hover:scale-105 transition"
+        >
+            <Lock className="mx-auto text-yellow-500 mb-2" />
+
+            <h3 className="font-bold">
+                Unlock Analytics
+            </h3>
+
+            <p className="text-sm text-gray-500">
+                Upgrade to Plus
+            </p>
+
+        </button>
+
+    </div>
+
+</div>
 
       {/* Middle Section */}
 
       <div className="grid xl:grid-cols-3 gap-4 md:gap-6">
 
-        <div className="xl:col-span-2">
+<div className="xl:col-span-2 relative">
 
-          <RecentOrders />
+    <div className="blur-[5px] pointer-events-none opacity-70">
+        <RecentOrders />
+    </div>
 
-        </div>
+    <div className="absolute inset-0 flex items-center justify-center">
 
+        <button
+            onClick={() => setShowProModal(true)}
+            className="rounded-2xl bg-white/95 px-6 py-4 shadow-xl border border-yellow-300 hover:scale-105 transition"
+        >
+            <Lock className="mx-auto mb-2 text-yellow-500" />
+
+            <h3 className="font-bold">
+                Unlock Recent Orders
+            </h3>
+
+            <p className="text-sm text-gray-500">
+                Upgrade to Pro 
+            </p>
+
+        </button>
+
+    </div>
+
+</div>
+
+        <div className="relative">
+
+    <div className="blur-[5px] pointer-events-none opacity-70">
         <TopProducts />
+    </div>
+
+    <div className="absolute inset-0 flex items-center justify-center">
+
+        <button
+            onClick={() => setShowProModal(true)}
+            className="rounded-2xl bg-white/95 px-6 py-4 shadow-xl border border-yellow-300 hover:scale-105 transition"
+        >
+            <Lock className="mx-auto mb-2 text-yellow-500" />
+            <h3 className="font-bold"
+            >
+              Top Selling Products
+            </h3>
+            
+
+            <div className="text-xs text-gray-500">
+                Upgrade to Plus 
+            </div>
+
+        </button>
+
+    </div>
+
+</div>
 
       </div>
 
@@ -149,11 +225,45 @@ const Dashboard = () => {
 
         </div>
 
+<div className="relative">
+
+    <div className="blur-[5px] pointer-events-none opacity-70">
         <QuickActions />
+    </div>
+
+    <div className="absolute inset-0 flex items-center justify-center">
+
+        <button
+            onClick={() => setShowProModal(true)}
+            className="rounded-2xl bg-white/95 px-6 py-4 shadow-xl border border-yellow-300 hover:scale-105 transition"
+        >
+            <Lock className="mx-auto mb-2 text-yellow-500" />
+
+            <h3 className="font-bold">
+                Unlock Quick Actions
+            </h3>
+
+            <p className="text-sm text-gray-500">
+                Available in Pro
+            </p>
+
+        </button>
+
+    </div>
+
+</div>
 
       </div>
 
     </div>
+    <ProFeatureModal
+    open={showProModal}
+    onClose={() => setShowProModal(false)}
+    onUpgrade={() => {
+        setShowProModal(false);
+        alert("Pricing page coming soon!");
+    }}
+/>
     </motion.div>
   );
 };

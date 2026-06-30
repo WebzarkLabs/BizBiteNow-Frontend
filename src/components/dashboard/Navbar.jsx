@@ -192,7 +192,7 @@ const Navbar = ({ openSidebar }) => {
                 <Type size={18} />
                 <span className="text-sm font-medium">Fonts</span>
 
-                <span className="absolute -top-2 -right-2 rounded-full bg-gradient-to-r from-yellow-300 to-orange-500 px-2 py-0.5 text-[10px] font-bold text-black shadow-md animate-pulse">                 
+                <span className="absolute -top-2 -right-2 rounded-full bg-gradient-to-r from-yellow-300 to-orange-500 px-2 py-0.5 text-[10px] font-bold text-black shadow-md animate-pulse">
                   PRO
                 </span>
               </button>

@@ -1,5 +1,4 @@
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-
 import AuthLayout from "../layouts/AuthLayout";
 import DashboardLayout from "../layouts/DashboardLayout";
 import CustomerLayout from "../layouts/CustomerLayout";
@@ -21,7 +20,7 @@ import OrderConfirmation from "../pages/customer/OrderConfirmation";
 import CustomerRegister from "../pages/customer/Register";
 import CustomerProfile from "../pages/customer/Profile";
 import OrderDetails from "../pages/seller/OrderDetails";
-
+import SellerProtectedRoute from "./SellerProtectedRoute";
 
 const AppRoutes = () => {
   return (
@@ -38,11 +37,6 @@ const AppRoutes = () => {
           <Route path="customer/profile" element={<CustomerProfile />} />
         </Route>
 
-        {/* Seller Dashboard */}
-        <Route path="/dashboard" element={<DashboardLayout />} />
-        <Route index element={<Dashboard />} />
-        {/* Redirect */}
-        <Route path="/" element={<Navigate to="/seller/login" replace />} />
 
         {/* Seller Authentication */}
         <Route path="/seller" element={<AuthLayout />}>
@@ -51,14 +45,16 @@ const AppRoutes = () => {
         </Route>
 
         {/* Seller Dashboard */}
-        <Route path="/seller" element={<DashboardLayout />}>
-          <Route path="dashboard" element={<Dashboard />} />
-          <Route path="orders" element={<Orders />} />
-          <Route path="orders/:orderId" element={<OrderDetails />} />
-          <Route path="products" element={<Products />} />
-          <Route path="settings" element={<Settings />} />
-          <Route path="earnings" element={<Earnings />} />
-          <Route path= "profile" element={<Profile/>}/>
+        <Route element={<SellerProtectedRoute />}>
+          <Route path="/seller" element={<DashboardLayout />}>
+            <Route path="dashboard" element={<Dashboard />} />
+            <Route path="orders" element={<Orders />} />
+            <Route path="orders/:orderId" element={<OrderDetails />} />
+            <Route path="products" element={<Products />} />
+            <Route path="settings" element={<Settings />} />
+            <Route path="earnings" element={<Earnings />} />
+            <Route path="profile" element={<Profile />} />
+          </Route>
         </Route>
 
         {/* 404 */}

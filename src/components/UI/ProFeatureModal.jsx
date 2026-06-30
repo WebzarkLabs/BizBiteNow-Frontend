@@ -26,19 +26,30 @@ const ProFeatureModal = ({ open, onClose, onUpgrade }) => {
 
         {/* Heading */}
         <h2 className="mt-6 text-center text-3xl font-bold text-gray-800">
-          Premium Feature
+          Unlock Premium Features
         </h2>
 
         <p className="mt-3 text-center text-gray-500">
-          Customize your store with premium branding features.
+          Upgrade to Pro or Plus and access advanced tools to grow your business.
         </p>
 
         {/* Features */}
         <div className="mt-8 space-y-3 rounded-2xl bg-gray-50 p-5">
-          <Feature text="Unlimited Theme Colors" />
-          <Feature text="Premium Font Styles" />
-          <Feature text="Advanced Store Branding" />
-          <Feature text="Future Premium Features" />
+
+          <Feature text="Dashboard Analytics & Insights" />
+
+          <Feature text="Revenue, Orders, Customers & Products Overview" />
+
+          <Feature text="Recent Orders & Quick Actions" />
+
+          <Feature text="Top Selling Products & Inventory Analytics" />
+
+          <Feature text="Earnings Dashboard & Interactive Charts" />
+
+          <Feature text="Unlimited Theme Colors & Premium Fonts" />
+
+          <Feature text="Advanced Store Branding & Future Premium Features" />
+
         </div>
 
         {/* Bottom */}

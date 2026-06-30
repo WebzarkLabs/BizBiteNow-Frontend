@@ -1,9 +1,10 @@
 import { Mail, Lock, Eye, EyeOff } from "lucide-react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import logo from "../../assets/branding/BIZ BITE NOW Horizontal Complete.png";
 import logo1 from "../../assets/branding/BIZBITENOW Vertical Complete1.png";
 import { motion } from "framer-motion";
+import { loginSeller } from "../../services/sellerAuth";
 const Login = () => {
     const navigate = useNavigate();
 
@@ -11,14 +12,36 @@ const Login = () => {
     const [email, setEmail] = useState("");
     const [pin, setPin] = useState("");
 
-    const handleLogin = (e) => {
-        e.preventDefault();
+const handleLogin = async (e) => {
+    e.preventDefault();
 
-        // Temporary frontend-only login
+    try {
+        const res = await loginSeller({
+            email,
+            pin,
+        });
+
+        // Save JWT token
+        localStorage.setItem("sellerToken", res.data.token);
+
+        // Optional auth flag
         localStorage.setItem("sellerAuth", "true");
 
         navigate("/seller/dashboard");
-    };
+    } catch (err) {
+        alert(
+            err.response?.data?.message ||
+            "Invalid email or PIN"
+        );
+    }
+};
+useEffect(() => {
+  const token = localStorage.getItem("sellerToken");
+
+  if (token) {
+    navigate("/seller/dashboard", { replace: true });
+  }
+}, [navigate]);
 
     return (
         <div className="relative min-h-screen overflow-hidden bg-[#16522d] flex items-center justify-center p-6">

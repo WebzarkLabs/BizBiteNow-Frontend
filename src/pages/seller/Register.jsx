@@ -8,12 +8,12 @@ import {
     EyeOff,
     MapPin,
 } from "lucide-react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import {
   sendOTP,
   verifyOTP,
-  registerSeller,
+  registerSeller,loginSeller
 } from "../../services/sellerAuth";
 import logo from "../../assets/branding/BIZ BITE NOW Horizontal Complete.png";
 import logo1 from "../../assets/branding/BIZBITENOW Vertical Complete1.png";
@@ -27,14 +27,12 @@ const Register = () => {
     const [otp, setOtp] = useState("");
     const demoOTP = "123456";
     const [form, setForm] = useState({
-        ownerName: "",
-        businessName: "",
+        shopName: "",
         email: "",
-        phone: "",
-        city: "",
-        address: "",
-        password: "",
-        confirmPassword: "",
+        pin: "",
+        logoUrl: "",
+        brandColor: "#1A4D2E",
+        bannerUrl: "",
     });
 
     const handleChange = (e) => {
@@ -66,15 +64,35 @@ const Register = () => {
     const inputStyle =
         "w-full rounded-xl border border-gray-300 bg-gray-50 py-3.5 pl-12 pr-4 outline-none transition-all duration-300 focus:border-[#1A4D2E] focus:ring-4 focus:ring-green-100";
     const handleVerifyOTP = async () => {
-    // Frontend demo mode
-    if (import.meta.env.DEV) {
-        if (otp === "123456") {
-        navigate("/seller/dashboard");
-        } else {
-        alert("Invalid OTP");
-        }
-        return;
+  if (import.meta.env.DEV) {
+    if (otp !== "123456") {
+      alert("Invalid OTP");
+      return;
     }
+
+    try {
+      // Register seller
+      await registerSeller(form);
+
+      // Auto login
+      const loginRes = await loginSeller({
+        email: form.email,
+        pin: form.pin,
+      });
+
+      localStorage.setItem("sellerAuth", "true");
+
+      if (loginRes.data.token) {
+        localStorage.setItem("sellerToken", loginRes.data.token);
+      }
+
+      navigate("/seller/dashboard");
+    } catch (err) {
+      alert(err.response?.data?.message || "Registration failed");
+    }
+
+    return;
+  }
 
     // Production mode
     // try {
@@ -86,6 +104,13 @@ const Register = () => {
     //     alert("Invalid OTP");
     // }
     };
+    useEffect(() => {
+  const token = localStorage.getItem("sellerToken");
+
+  if (token) {
+    navigate("/seller/dashboard", { replace: true });
+  }
+}, [navigate]);
     return (
         <div className="relative min-h-screen overflow-hidden bg-[#16522d] flex items-center justify-center p-6">
 
@@ -278,25 +303,14 @@ const Register = () => {
                             className="grid md:grid-cols-2 gap-3"
                         >
 
-                            <div className="relative">
-                                <User className="absolute left-4 top-4 text-gray-400" size={20} />
-                                <input
-                                    name="ownerName"
-                                    placeholder="Owner Name"
-                                    className={inputStyle}
-                                    value={form.ownerName}
-                                    onChange={handleChange}
-                                    required
-                                />
-                            </div>
 
                             <div className="relative">
                                 <Building2 className="absolute left-4 top-4 text-gray-400" size={20} />
                                 <input
-                                    name="businessName"
-                                    placeholder="Business Name"
+                                    name="shopName"
+                                    placeholder="Shop Name"
                                     className={inputStyle}
-                                    value={form.businessName}
+                                    value={form.shopName}
                                     onChange={handleChange}
                                     required
                                 />
@@ -315,39 +329,6 @@ const Register = () => {
                                 />
                             </div>
 
-                            <div className="relative">
-                                <Phone className="absolute left-4 top-4 text-gray-400" size={20} />
-                                <input
-                                    name="phone"
-                                    placeholder="Phone Number"
-                                    className={inputStyle}
-                                    value={form.phone}
-                                    onChange={handleChange}
-                                    required
-                                />
-                            </div>
-
-                            <div className="relative">
-                                <MapPin className="absolute left-4 top-4 text-gray-400" size={20} />
-                                <input
-                                    name="city"
-                                    placeholder="City"
-                                    className={inputStyle}
-                                    value={form.city}
-                                    onChange={handleChange}
-                                    required
-                                />
-                            </div>
-
-                            <textarea
-                                rows="3"
-                                name="address"
-                                placeholder="Business Address"
-                                className="md:col-span-2 rounded-xl border border-gray-300 bg-gray-50 p-4 outline-none focus:border-[#1A4D2E] focus:ring-4 focus:ring-green-100"
-                                value={form.address}
-                                onChange={handleChange}
-                                required
-                            />
 
                             <div className="relative">
 
@@ -355,31 +336,15 @@ const Register = () => {
 
                                 <input
                                     type={showPassword ? "text" : "password"}
-                                    name="password"
+                                    name="pin"
                                     placeholder="Password"
                                     className={inputStyle}
-                                    value={form.password}
+                                    value={form.pin}
                                     onChange={handleChange}
                                     required
                                 />
 
-                            </div>
-
-                            <div className="relative">
-
-                                <Lock className="absolute left-4 top-4 text-gray-400" size={20} />
-
-                                <input
-                                    type={showPassword ? "text" : "password"}
-                                    name="confirmPassword"
-                                    placeholder="Confirm Password"
-                                    className={inputStyle}
-                                    value={form.confirmPassword}
-                                    onChange={handleChange}
-                                    required
-                                />
-
-                                <button
+                               <button
                                     type="button"
                                     onClick={() => setShowPassword(!showPassword)}
                                     className="absolute right-4 top-4"
@@ -388,6 +353,42 @@ const Register = () => {
                                 </button>
 
                             </div>
+                            <div className="relative">
+                                <Building2 className="absolute left-4 top-4 text-gray-400" size={20} />
+
+                                <input
+                                    name="logoUrl"
+                                    placeholder="Brand Logo URL"
+                                    className={inputStyle}
+                                    value={form.logoUrl}
+                                    onChange={handleChange}
+                                />
+                                </div>
+                                <div className="rounded-xl border border-gray-300 bg-gray-50 px-4 py-3 flex items-center justify-between">
+
+                                <span className="text-gray-700 font-medium">
+                                    Brand Color
+                                </span>
+
+                                <input
+                                    type="color"
+                                    name="brandColor"
+                                    value={form.brandColor}
+                                    onChange={handleChange}
+                                    className="h-10 w-16 cursor-pointer rounded-lg border"
+                                />
+                                </div>
+                                <div className="relative md:col-span-2">
+                                <Building2 className="absolute left-4 top-4 text-gray-400" size={20} />
+
+                                <input
+                                    name="bannerUrl"
+                                    placeholder="Banner Image URL"
+                                    className={inputStyle}
+                                    value={form.bannerUrl}
+                                    onChange={handleChange}
+                                />
+                                </div>
 
                                 <label className="md:col-span-2 flex items-center gap-3 text-sm cursor-pointer select-none">
 

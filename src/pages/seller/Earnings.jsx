@@ -8,11 +8,33 @@ import {
   Clock3,
   CircleDot,
 } from "lucide-react";
+import {
+  ResponsiveContainer,
+  LineChart,
+  Line,
+  CartesianGrid,
+  XAxis,
+  YAxis,
+  Tooltip,
+} from "recharts";
 
+import { Lock } from "lucide-react";
+import { useState } from "react";
+import ProFeatureModal from "../../components/UI/ProFeatureModal";
 const Earnings = () => {
   const todayEarnings = 1280;
   const todayOrders = 8;
   const pendingOrders = 2;
+  const [showProModal, setShowProModal] = useState(false);
+
+const earningsData = [
+  { month: "Jan", earnings: 12000 },
+  { month: "Feb", earnings: 18000 },
+  { month: "Mar", earnings: 15000 },
+  { month: "Apr", earnings: 22000 },
+  { month: "May", earnings: 26000 },
+  { month: "Jun", earnings: 31000 },
+];
 
   return (
     <motion.div
@@ -21,6 +43,9 @@ const Earnings = () => {
       transition={{ duration: 0.4 }}
       className="space-y-6"
     >
+      <div className="relative">
+
+  <div className="space-y-6 blur-[5px] opacity-70 pointer-events-none">
       <SectionTitle
         title="Earnings"
         subtitle="Track today's earnings and order activity."
@@ -62,59 +87,109 @@ const Earnings = () => {
       </Card>
 
       {/* Stats */}
-      <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
-        {/* Orders */}
-        <Card className="transition-all duration-300 hover:scale-[1.02]">
-          <div className="flex items-center justify-between">
-            <div className="rounded-2xl bg-[#1A4D2E]/10 p-3">
-              <ShoppingBag
-                size={28}
-                className="text-[#1A4D2E]"
-              />
-            </div>
+      {/* Premium Earnings Section */}
 
-            <span className="text-sm text-gray-500">
-              Today
-            </span>
+
+    {/* Chart */}
+    <Card>
+      <h2 className="text-xl font-bold mb-6">
+        Monthly Earnings
+      </h2>
+
+      <ResponsiveContainer width="100%" height={320}>
+        <LineChart data={earningsData}>
+          <CartesianGrid strokeDasharray="3 3" />
+          <XAxis dataKey="month" />
+          <YAxis />
+          <Tooltip />
+          <Line
+            type="monotone"
+            dataKey="earnings"
+            stroke="#1A4D2E"
+            strokeWidth={3}
+          />
+        </LineChart>
+      </ResponsiveContainer>
+    </Card>
+
+    {/* Stats */}
+    <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+
+      <Card className="transition-all duration-300">
+        <div className="flex items-center justify-between">
+          <div className="rounded-2xl bg-[#1A4D2E]/10 p-3">
+            <ShoppingBag size={28} className="text-[#1A4D2E]" />
           </div>
 
-          <h2 className="mt-6 text-5xl font-bold text-gray-800">
-            {todayOrders}
-          </h2>
+          <span className="text-sm text-gray-500">
+            Today
+          </span>
+        </div>
 
-          <p className="mt-2 text-gray-500">
-            Orders received today
-          </p>
-        </Card>
+        <h2 className="mt-6 text-5xl font-bold text-gray-800">
+          {todayOrders}
+        </h2>
 
-        {/* Pending */}
-        <Card className="transition-all duration-300 hover:scale-[1.02]">
-          <div className="flex items-center justify-between">
-            <div className="rounded-2xl bg-yellow-100 p-3">
-              <Clock3
-                size={28}
-                className="text-yellow-600"
-              />
-            </div>
+        <p className="mt-2 text-gray-500">
+          Orders received today
+        </p>
+      </Card>
 
-            <Badge color="yellow">
-              Order Placed
-            </Badge>
+      <Card className="transition-all duration-300">
+        <div className="flex items-center justify-between">
+          <div className="rounded-2xl bg-yellow-100 p-3">
+            <Clock3 size={28} className="text-yellow-600" />
           </div>
 
-          <h2 className="mt-6 text-5xl font-bold text-gray-800">
-            {pendingOrders}
-          </h2>
+          <Badge color="yellow">
+            Order Placed
+          </Badge>
+        </div>
 
-          <div className="mt-2 flex items-center gap-2 text-gray-500">
-            <CircleDot
-              size={14}
-              className="text-yellow-500"
-            />
-            Awaiting delivery
-          </div>
-        </Card>
-      </div>
+        <h2 className="mt-6 text-5xl font-bold text-gray-800">
+          {pendingOrders}
+        </h2>
+
+        <div className="mt-2 flex items-center gap-2 text-gray-500">
+          <CircleDot
+            size={14}
+            className="text-yellow-500"
+          />
+          Awaiting delivery
+        </div>
+      </Card>
+
+    </div>
+
+  </div>
+
+  {/* Lock Overlay */}
+  <div className="absolute inset-0 flex items-center justify-center">
+
+    <button
+      onClick={() => setShowProModal(true)}
+      className="rounded-2xl bg-white/95 px-8 py-5 border border-yellow-300 shadow-xl hover:scale-105 transition"
+    >
+      <Lock className="mx-auto mb-3 text-yellow-500" size={30} />
+
+      <h3 className="text-lg font-bold">
+        Unlock Earnings Dashboard
+      </h3>
+
+      <p className="mt-1 text-sm text-gray-500">
+        Earnings analytics, reports, charts and statistics are available with Pro & Plus Membership.
+      </p>
+
+    </button>
+
+  </div>
+
+</div>
+<ProFeatureModal
+  open={showProModal}
+  onClose={() => setShowProModal(false)}
+  onUpgrade={() => setShowProModal(false)}
+/>
     </motion.div>
   );
 };
