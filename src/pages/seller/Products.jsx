@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Card from "../../components/ui/Card";
 import Button from "../../components/ui/Button";
 import Badge from "../../components/ui/Badge";
@@ -9,33 +9,15 @@ import chickenburger from "../../assets/Chickenburger.png";
 import vegpizza from "../../assets/Vegpizza.png";
 import coffee from "../../assets/Coldcoffee.png";
 import { Plus, Pencil, Trash2 } from "lucide-react";
-
+import {
+  getAllProducts,
+  addProduct,
+  updateProduct,
+  deleteProduct,
+} from "../../services/product";
 const Products = () => {
-  // Temporary data
-  const initialProducts = [
-    {
-      id: 1,
-      name: "Chicken Burger",
-      category: "Fast Food",
-      price: 199,
-      image: chickenburger,
-    },
-    {
-      id: 2,
-      name: "Cold Coffee",
-      category: "Beverages",
-      price: 149,
-      image: coffee,
-    },
-    {
-      id: 3,
-      name: "Veg Pizza",
-      category: "Pizza",
-      price: 299,
-      image: vegpizza,
-    },
-  ];
-  const [products, setProducts] = useState(initialProducts);
+  
+  const [products, setProducts] = useState([]);
   const [preview, setPreview] = useState("");
   const [showModal, setShowModal] = useState(false);
   const [editingProduct, setEditingProduct] = useState(null);
@@ -45,37 +27,42 @@ const Products = () => {
     price: "",
     image: "",
   });
-  const handleSave = () => {
-    if (
-      !formData.name ||
-      !formData.category ||
-      !formData.price
-    ) {
-      return;
-    }
+  useEffect(() => {
+  fetchProducts();
+}, []);
 
-    const newProduct = {
-      id: editingProduct ? editingProduct.id : Date.now(),
-      name: formData.name,
-      category: formData.category,
-      price: formData.price,
-      image: preview || formData.image,
-    };
+const fetchProducts = async () => {
+  try {
+    const data = await getAllProducts();
+    setProducts(data);
+  } catch (error) {
+    console.error(error);
+  }
+};
+  const handleSave = async () => {
+  if (!formData.name || !formData.category || !formData.price) return;
+
+  try {
+    const form = new FormData();
+
+    form.append("name", formData.name);
+    form.append("category", formData.category);
+    form.append("price", formData.price);
+
+    if (formData.image instanceof File) {
+      form.append("image", formData.image);
+    }
 
     if (editingProduct) {
-      setProducts(
-        products.map((p) =>
-          p.id === editingProduct.id ? newProduct : p
-        )
-      );
+      await updateProduct(editingProduct.id, form);
     } else {
-      setProducts([...products, newProduct]);
+      await addProduct(form);
     }
 
+    await fetchProducts();
+
     setShowModal(false);
-
     setEditingProduct(null);
-
     setPreview("");
 
     setFormData({
@@ -84,7 +71,10 @@ const Products = () => {
       price: "",
       image: "",
     });
-  };
+  } catch (error) {
+    console.error(error);
+  }
+};
   return (
     <motion.div
       initial={{ opacity: 0, y: 15 }}
@@ -194,9 +184,14 @@ const Products = () => {
                   <Button
                     variant="danger"
                     className="flex items-center justify-center px-4"
-                    onClick={() => {
-                      if (window.confirm(`Delete "${product.name}"?`)) {
-                        setProducts(products.filter((p) => p.id !== product.id));
+                    onClick={async () => {
+                      if (!window.confirm(`Delete "${product.name}"?`)) return;
+
+                      try {
+                        await deleteProduct(product.id);
+                        fetchProducts();
+                      } catch (error) {
+                        console.error(error);
                       }
                     }}
                   >
