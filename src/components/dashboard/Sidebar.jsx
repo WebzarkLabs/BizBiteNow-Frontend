@@ -34,11 +34,6 @@ const menuItems = [
     path: "/seller/settings",
     icon: Settings,
   },
-  {
-    name: "Earnings",
-    path: "/seller/earnings",
-    icon: IndianRupee,
-  },
 ];
 
 const Sidebar = ({ openProModal }) => {
