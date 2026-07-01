@@ -37,7 +37,6 @@ const AppRoutes = () => {
           <Route path="customer/profile" element={<CustomerProfile />} />
         </Route>
 
-
         {/* Seller Authentication */}
         <Route path="/seller" element={<AuthLayout />}>
           <Route path="login" element={<Login />} />
@@ -45,7 +44,7 @@ const AppRoutes = () => {
         </Route>
 
         {/* Seller Dashboard */}
-      
+        <Route element={<SellerProtectedRoute />}>
           <Route path="/seller" element={<DashboardLayout />}>
             <Route path="dashboard" element={<Dashboard />} />
             <Route path="orders" element={<Orders />} />
@@ -55,7 +54,7 @@ const AppRoutes = () => {
             <Route path="earnings" element={<Earnings />} />
             <Route path="profile" element={<Profile />} />
           </Route>
-        
+        </Route>
 
         {/* 404 */}
         <Route
