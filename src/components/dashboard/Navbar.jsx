@@ -12,8 +12,10 @@ import {
   Palette,
   Type,
 } from "lucide-react";
+import { getMyProfile } from "../../services/sellerProfile";
 const Navbar = ({ openSidebar }) => {
   const navigate = useNavigate();
+  const [seller, setSeller] = useState(null);
   const initialNotifications = [
     {
       id: 1,
@@ -81,6 +83,18 @@ const Navbar = ({ openSidebar }) => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
+  useEffect(() => {
+  const loadSeller = async () => {
+    try {
+      const res = await getMyProfile();
+      setSeller(res.data);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  loadSeller();
+}, []);
   return (
     <>
       <ProFeatureModal
@@ -297,15 +311,19 @@ const Navbar = ({ openSidebar }) => {
                 className="flex items-center gap-2 rounded-xl p-1.5 md:p-2 hover:bg-gray-100 transition"
               >
                 <img
-                  src={defaultAvatar}
+                  src={seller?.logoUrl || defaultAvatar}
                   alt="Seller"
                   className="h-10 w-10 md:h-11 md:w-11 rounded-full object-cover border-2 border-green-600"
                 />
 
                 <div className="hidden md:block text-left">
-                  <h4 className="font-semibold text-gray-800">Seller Name</h4>
+                  <h4 className="font-semibold text-gray-800">
+                    {seller?.shopName || seller?.name || "Seller"}
+                  </h4>
 
-                  <p className="text-xs text-gray-500">seller@bizbitenow.com</p>
+                    <p className="text-xs text-gray-500">
+                      {seller?.email}
+                    </p>
                 </div>
               </button>
 
@@ -336,13 +354,15 @@ const Navbar = ({ openSidebar }) => {
               >
                 <div className="flex items-center gap-4">
                   <img
-                    src={defaultAvatar}
+                    src={seller?.logoUrl || defaultAvatar}
                     alt="Seller"
                     className="h-11 w-11 rounded-full object-cover border-2 border-green-600"
                   />
 
                   <div>
-                    <h3 className="font-bold text-lg">Seller Name</h3>
+                    <h4 className="font-semibold text-gray-800">
+                      {seller?.shopName || seller?.name || "Seller"}
+                    </h4>
 
                     <p className="text-sm text-gray-500">Restaurant Owner</p>
                   </div>
@@ -351,7 +371,9 @@ const Navbar = ({ openSidebar }) => {
                 <div className="mt-5 space-y-3">
                   <div className="flex items-center gap-2 text-gray-600 text-sm">
                     <Mail size={16} />
-                    seller@bizbitenow.com
+                    <p className="text-xs text-gray-500">
+                      {seller?.email}
+                    </p>
                   </div>
 
                   <div className="flex items-center gap-2 text-green-700 text-sm">
