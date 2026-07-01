@@ -44,24 +44,24 @@ const menuItems = [
 const Sidebar = ({ openProModal }) => {
   const navigate = useNavigate();
 
-const handleLogout = () => {
-  // Remove all possible auth data
-  localStorage.removeItem("sellerToken");
-  localStorage.removeItem("sellerAuth");
-  localStorage.removeItem("token");
-  localStorage.removeItem("seller");
-  localStorage.removeItem("user");
+  const handleLogout = () => {
+    // Remove all possible auth data
+    localStorage.removeItem("sellerToken");
+    localStorage.removeItem("sellerAuth");
+    localStorage.removeItem("token");
+    localStorage.removeItem("seller");
+    localStorage.removeItem("user");
 
-  sessionStorage.clear();
+    sessionStorage.clear();
 
-  navigate("/seller/login", { replace: true });
+    navigate("/seller/login", { replace: true });
 
-  // Prevent back button returning to dashboard
-  window.location.reload();
-};
+    // Prevent back button returning to dashboard
+    window.location.reload();
+  };
 
   return (
-<aside className="h-full w-full bg-[#1A4D2E] text-white flex flex-col">
+    <aside className="h-full w-full bg-[#1A4D2E] text-white flex flex-col">
       {/* Logo */}
       <div className="h-20 flex flex-col items-center justify-center border-b border-white/10 px-4 gap-1">
         <div className="bg-white rounded-xl px-3 py-1.5">
@@ -100,11 +100,10 @@ const handleLogout = () => {
       </nav>
       {/* Mobile Premium Features */}
 
-<div className="lg:hidden px-4 pb-4 space-y-3">
-
-  <button
-    onClick={openProModal}
-    className="
+      <div className="lg:hidden px-4 pb-4 space-y-3">
+        <button
+          onClick={openProModal}
+          className="
       relative
       w-full
       overflow-hidden
@@ -123,22 +122,22 @@ const handleLogout = () => {
       transition
       hover:scale-[1.02]
     "
-  >
-    <div className="flex items-center justify-between">
-      <div className="flex items-center gap-3">
-        <Palette size={20} />
-        Theme Colors
-      </div>
+        >
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-3">
+              <Palette size={20} />
+              Theme Colors
+            </div>
 
-      <span className="rounded-full bg-yellow-300 px-2 py-0.5 text-[10px] font-bold text-black animate-pulse">
-        PRO
-      </span>
-    </div>
-  </button>
+            <span className="rounded-full bg-yellow-300 px-2 py-0.5 text-[10px] font-bold text-black animate-pulse">
+              PRO
+            </span>
+          </div>
+        </button>
 
-  <button
-    onClick={openProModal}
-    className="
+        <button
+          onClick={openProModal}
+          className="
       relative
       w-full
       overflow-hidden
@@ -157,20 +156,19 @@ const handleLogout = () => {
       transition
       hover:scale-[1.02]
     "
-  >
-    <div className="flex items-center justify-between">
-      <div className="flex items-center gap-3">
-        <Type size={20} />
-        Font Styles
+        >
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-3">
+              <Type size={20} />
+              Font Styles
+            </div>
+
+            <span className="rounded-full bg-yellow-300 px-2 py-0.5 text-[10px] font-bold text-black animate-pulse">
+              PRO
+            </span>
+          </div>
+        </button>
       </div>
-
-      <span className="rounded-full bg-yellow-300 px-2 py-0.5 text-[10px] font-bold text-black animate-pulse">
-        PRO
-      </span>
-    </div>
-  </button>
-
-</div>
 
       {/* Logout */}
       <div className="p-4 border-t border-white/10">
@@ -182,7 +180,6 @@ const handleLogout = () => {
           Logout
         </button>
       </div>
-
     </aside>
   );
 };

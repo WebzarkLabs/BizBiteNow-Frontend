@@ -84,17 +84,17 @@ const Navbar = ({ openSidebar }) => {
     };
   }, []);
   useEffect(() => {
-  const loadSeller = async () => {
-    try {
-      const res = await getMyProfile();
-      setSeller(res.data);
-    } catch (err) {
-      console.error(err);
-    }
-  };
+    const loadSeller = async () => {
+      try {
+        const res = await getMyProfile();
+        setSeller(res.data);
+      } catch (err) {
+        console.error(err);
+      }
+    };
 
-  loadSeller();
-}, []);
+    loadSeller();
+  }, []);
   return (
     <>
       <ProFeatureModal
@@ -321,9 +321,7 @@ const Navbar = ({ openSidebar }) => {
                     {seller?.shopName || seller?.name || "Seller"}
                   </h4>
 
-                    <p className="text-xs text-gray-500">
-                      {seller?.email}
-                    </p>
+                  <p className="text-xs text-gray-500">{seller?.email}</p>
                 </div>
               </button>
 
@@ -371,9 +369,7 @@ const Navbar = ({ openSidebar }) => {
                 <div className="mt-5 space-y-3">
                   <div className="flex items-center gap-2 text-gray-600 text-sm">
                     <Mail size={16} />
-                    <p className="text-xs text-gray-500">
-                      {seller?.email}
-                    </p>
+                    <p className="text-xs text-gray-500">{seller?.email}</p>
                   </div>
 
                   <div className="flex items-center gap-2 text-green-700 text-sm">

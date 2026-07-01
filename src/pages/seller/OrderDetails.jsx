@@ -42,7 +42,7 @@ const itemVariants = {
   },
 };
 
-const OrderDetails = (     ) => {
+const OrderDetails = () => {
   const navigate = useNavigate();
 
   // Dummy data (replace with API later)

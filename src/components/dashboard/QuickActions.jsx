@@ -1,10 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import {
-  PlusCircle,
-  ShoppingBag,
-  Settings,
-  IndianRupee,
-} from "lucide-react";
+import { PlusCircle, ShoppingBag, Settings, IndianRupee } from "lucide-react";
 
 import Card from "../UI/Card";
 
@@ -45,13 +40,9 @@ const QuickActions = () => {
   return (
     <Card>
       <div className="mb-6">
-        <h2 className="text-2xl font-bold text-gray-800">
-          Quick Actions
-        </h2>
+        <h2 className="text-2xl font-bold text-gray-800">Quick Actions</h2>
 
-        <p className="text-sm text-gray-500 mt-1">
-          Frequently used shortcuts
-        </p>
+        <p className="text-sm text-gray-500 mt-1">Frequently used shortcuts</p>
       </div>
 
       <div className="grid grid-cols-2 gap-4">
@@ -74,9 +65,7 @@ const QuickActions = () => {
                 {action.title}
               </h3>
 
-              <p className="text-sm text-gray-500 mt-1">
-                {action.description}
-              </p>
+              <p className="text-sm text-gray-500 mt-1">{action.description}</p>
             </button>
           );
         })}
