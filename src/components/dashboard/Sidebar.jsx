@@ -44,10 +44,21 @@ const menuItems = [
 const Sidebar = ({ openProModal }) => {
   const navigate = useNavigate();
 
-  const handleLogout = () => {
-    localStorage.removeItem("sellerAuth");
-    window.location.href = "/seller/login";
-  };
+const handleLogout = () => {
+  // Remove all possible auth data
+  localStorage.removeItem("sellerToken");
+  localStorage.removeItem("sellerAuth");
+  localStorage.removeItem("token");
+  localStorage.removeItem("seller");
+  localStorage.removeItem("user");
+
+  sessionStorage.clear();
+
+  navigate("/seller/login", { replace: true });
+
+  // Prevent back button returning to dashboard
+  window.location.reload();
+};
 
   return (
 <aside className="h-full w-full bg-[#1A4D2E] text-white flex flex-col">
