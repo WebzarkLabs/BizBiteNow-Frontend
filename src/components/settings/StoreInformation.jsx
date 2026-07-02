@@ -1,19 +1,49 @@
+import { useEffect, useState } from "react";
 import Card from "../UI/Card";
-import {
-  Store,
-  Phone,
-  Mail,
-  MapPin,
-  Save,
-  Utensils,
-} from "lucide-react";
-
+import { Store, Mail, Save } from "lucide-react";
+import { getMyProfile, updateProfile } from "../../services/sellerProfile";
 const inputClass =
   "w-full rounded-2xl border border-gray-200 bg-gray-50 py-3 pl-12 pr-4 text-sm transition-all outline-none focus:border-green-600 focus:bg-white focus:ring-4 focus:ring-green-100";
 
 const StoreInformation = () => {
+  const [storeInfo, setStoreInfo] = useState({
+    shopName: "",
+    email: "",
+  });
+  const [sellerId, setSellerId] = useState("");
+  useEffect(() => {
+  fetchProfile();
+}, []);
+
+const fetchProfile = async () => {
+  try {
+    const res = await getMyProfile();
+
+    const seller = res.data;
+
+    setSellerId(seller.id || seller._id);
+
+    setStoreInfo({
+      shopName: seller.shopName || "",
+      email: seller.email || "",
+    });
+  } catch (err) {
+    console.error(err);
+  }
+};
+  const handleSave = async () => {
+    try {
+      console.log(storeInfo);
+
+      await updateProfile(sellerId, storeInfo);
+
+      alert("Store information updated successfully");
+    } catch (err) {
+      console.error(err);
+    }
+  };
   return (
-    <Card className="rounded-3xl shadow-sm hover:shadow-xl transition-all duration-300">
+    <Card className="min-h-[360px] rounded-3xl shadow-sm hover:shadow-xl transition-all duration-300">
       <div className="flex items-center gap-3 mb-8">
         <div className="bg-green-100 p-3 rounded-2xl">
           <Store className="text-green-700" size={24} />
@@ -30,71 +60,43 @@ const StoreInformation = () => {
       </div>
 
       <div className="grid md:grid-cols-2 gap-6">
-
         <div className="relative">
-          <Store
-            className="absolute left-4 top-3.5 text-gray-400"
-            size={18}
-          />
+          <Store className="absolute left-4 top-3.5 text-gray-400" size={18} />
           <input
-            placeholder="Store Name"
+            placeholder="Shop Name"
+            value={storeInfo.shopName}
+            onChange={(e) =>
+              setStoreInfo({
+                ...storeInfo,
+                shopName: e.target.value,
+              })
+            }
             className={inputClass}
           />
         </div>
 
         <div className="relative">
-          <Utensils
-            className="absolute left-4 top-3.5 text-gray-400"
-            size={18}
-          />
-          <select className={inputClass}>
-            <option>Fast Food</option>
-            <option>Restaurant</option>
-            <option>Cafe</option>
-            <option>Bakery</option>
-          </select>
-        </div>
-
-        <div className="relative">
-          <Phone
-            className="absolute left-4 top-3.5 text-gray-400"
-            size={18}
-          />
-          <input
-            placeholder="Phone Number"
-            className={inputClass}
-          />
-        </div>
-
-        <div className="relative">
-          <Mail
-            className="absolute left-4 top-3.5 text-gray-400"
-            size={18}
-          />
+          <Mail className="absolute left-4 top-3.5 text-gray-400" size={18} />
           <input
             type="email"
             placeholder="Email"
+            value={storeInfo.email}
+            onChange={(e) =>
+              setStoreInfo({
+                ...storeInfo,
+                email: e.target.value,
+              })
+            }
             className={inputClass}
           />
         </div>
-
-        <div className="relative md:col-span-2">
-          <MapPin
-            className="absolute left-4 top-4 text-gray-400"
-            size={18}
-          />
-
-          <textarea
-            rows={4}
-            placeholder="Store Address"
-            className="w-full rounded-2xl border border-gray-200 bg-gray-50 py-3 pl-12 pr-4 text-sm outline-none transition-all focus:border-green-600 focus:bg-white focus:ring-4 focus:ring-green-100"
-          />
-        </div>
-
       </div>
 
       <div className="mt-8 flex justify-end">
-        <button className="flex items-center gap-2 rounded-2xl bg-gradient-to-r from-[#1A4D2E] to-[#2D6A4F] px-6 py-3 text-white font-semibold shadow-md transition-all duration-300 hover:scale-105 hover:shadow-xl">
+        <button
+          onClick={handleSave}
+          className="flex items-center gap-2 rounded-2xl bg-gradient-to-r from-[#1A4D2E] to-[#2D6A4F] px-6 py-3 text-white font-semibold shadow-md transition-all duration-300 hover:scale-105 hover:shadow-xl"
+        >
           <Save size={18} />
           Save Changes
         </button>

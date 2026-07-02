@@ -2,10 +2,12 @@ import { useState } from "react";
 import { Outlet } from "react-router-dom";
 
 import Sidebar from "../components/dashboard/Sidebar";
+import ProFeatureModal from "../components/UI/ProFeatureModal";
 import Navbar from "../components/dashboard/Navbar";
 
 const DashboardLayout = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [showProModal, setShowProModal] = useState(false);
 
   return (
     <div className="min-h-screen bg-gray-100">
@@ -40,7 +42,7 @@ const DashboardLayout = () => {
           }
         `}
       >
-        <Sidebar />
+        <Sidebar openProModal={() => setShowProModal(true)} />
       </div>
 
       {/* Main */}
@@ -55,7 +57,14 @@ const DashboardLayout = () => {
         </main>
 
       </div>
-
+     <ProFeatureModal
+        open={showProModal}
+        onClose={() => setShowProModal(false)}
+        onUpgrade={() => {
+          setShowProModal(false);
+          alert("Pricing page coming soon!");
+        }}
+      />
     </div>
   );
 };

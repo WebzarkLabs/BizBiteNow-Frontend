@@ -1,4 +1,6 @@
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
+import { useState } from "react";
+
 import {
   LayoutDashboard,
   ShoppingBag,
@@ -6,6 +8,8 @@ import {
   Settings,
   IndianRupee,
   LogOut,
+  Palette,
+  Type,
 } from "lucide-react";
 import logoWithIcon from "../../assets/BIZ BITE NOW Horizontal with Icon.png";
 
@@ -30,21 +34,29 @@ const menuItems = [
     path: "/seller/settings",
     icon: Settings,
   },
-  {
-    name: "Earnings",
-    path: "/seller/earnings",
-    icon: IndianRupee,
-  },
 ];
 
-const Sidebar = () => {
+const Sidebar = ({ openProModal }) => {
+  const navigate = useNavigate();
+
   const handleLogout = () => {
+    // Remove all possible auth data
+    localStorage.removeItem("sellerToken");
     localStorage.removeItem("sellerAuth");
-    window.location.href = "/seller/login";
+    localStorage.removeItem("token");
+    localStorage.removeItem("seller");
+    localStorage.removeItem("user");
+
+    sessionStorage.clear();
+
+    navigate("/seller/login", { replace: true });
+
+    // Prevent back button returning to dashboard
+    window.location.reload();
   };
 
   return (
-<aside className="h-full w-full bg-[#1A4D2E] text-white flex flex-col">
+    <aside className="h-full w-full bg-[#1A4D2E] text-white flex flex-col">
       {/* Logo */}
       <div className="h-20 flex flex-col items-center justify-center border-b border-white/10 px-4 gap-1">
         <div className="bg-white rounded-xl px-3 py-1.5">
@@ -81,6 +93,77 @@ const Sidebar = () => {
           );
         })}
       </nav>
+      {/* Mobile Premium Features */}
+
+      <div className="lg:hidden px-4 pb-4 space-y-3">
+        <button
+          onClick={openProModal}
+          className="
+      relative
+      w-full
+      overflow-hidden
+      rounded-xl
+      bg-gradient-to-r
+      from-violet-600
+      via-fuchsia-500
+      to-pink-500
+      bg-[length:200%_200%]
+      animate-gradient
+      px-4
+      py-3
+      text-white
+      font-semibold
+      shadow-lg
+      transition
+      hover:scale-[1.02]
+    "
+        >
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-3">
+              <Palette size={20} />
+              Theme Colors
+            </div>
+
+            <span className="rounded-full bg-yellow-300 px-2 py-0.5 text-[10px] font-bold text-black animate-pulse">
+              PRO
+            </span>
+          </div>
+        </button>
+
+        <button
+          onClick={openProModal}
+          className="
+      relative
+      w-full
+      overflow-hidden
+      rounded-xl
+      bg-gradient-to-r
+      from-blue-600
+      via-cyan-500
+      to-teal-500
+      bg-[length:200%_200%]
+      animate-gradient
+      px-4
+      py-3
+      text-white
+      font-semibold
+      shadow-lg
+      transition
+      hover:scale-[1.02]
+    "
+        >
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-3">
+              <Type size={20} />
+              Font Styles
+            </div>
+
+            <span className="rounded-full bg-yellow-300 px-2 py-0.5 text-[10px] font-bold text-black animate-pulse">
+              PRO
+            </span>
+          </div>
+        </button>
+      </div>
 
       {/* Logout */}
       <div className="p-4 border-t border-white/10">

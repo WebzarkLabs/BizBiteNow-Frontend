@@ -1,8 +1,10 @@
 import Card from "./Card";
 import Button from "./Button";
 import { Phone, MapPin, Package, CircleCheck } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 const OrderCard = ({ order, activeTab, markAsDelivered }) => {
+  const navigate = useNavigate();
   return (
     <Card className="flex h-full flex-col justify-between p-5 w-full max-w-md">
       {/* Header */}
@@ -37,23 +39,48 @@ const OrderCard = ({ order, activeTab, markAsDelivered }) => {
         </div>
 
         <div className="space-y-2">
-          {order.items.slice(0, 2).map((item) => (
+          {order.items.slice(0, 1).map((item) => (
             <div
               key={item.productId}
-              className="flex justify-between rounded-lg bg-gray-50 px-3 py-2"
+              className="flex items-center justify-between rounded-lg bg-gray-50 p-3"
             >
-              <span className="text-sm text-gray-700">
-                {item.name} × {item.quantity}
+              <div className="flex items-center gap-3">
+                <img
+                  src={item.product.imageUrl}
+                  alt={item.product.name}
+                  className="h-12 w-12 rounded-lg object-cover"
+                />
+
+                <div>
+                  <p className="font-medium text-gray-800">
+                    {item.product.name}
+                  </p>
+
+                  <p className="text-sm text-gray-500">Qty: {item.quantity}</p>
+                </div>
+              </div>
+
+              <span className="font-semibold text-[#1A4D2E]">
+                ₹{item.product.sellingPrice}
               </span>
-              <span className="text-sm font-semibold">₹{item.price}</span>
             </div>
           ))}
 
-          {order.items.length > 2 && (
-            <p className="text-xs text-[#1A4D2E] font-medium">
-              +{order.items.length - 2} more items
+         
+            {order.items.length > 2 && (
+               <div className="flex items-center justify-between">
+              <p className="text-xs text-[#1A4D2E] font-medium">
+                +{order.items.length - 1} more items
+              </p>
+                <p className="underline cursor-pointer text-[#1A4D2E] hover:text-[#245C39] font-semibold"
+              onClick={() => navigate(`/seller/orders/${order.id}`)}
+            >
+              View Details
             </p>
-          )}
+               </div>
+            )}
+          
+         
         </div>
       </div>
 
