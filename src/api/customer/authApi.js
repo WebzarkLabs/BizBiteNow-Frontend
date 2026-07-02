@@ -6,56 +6,67 @@ const STORAGE_KEYS = {
   USER: "customerUser",
 };
 
-// POST /api/customer/register
-export const registerCustomer = (data) => {
+const MOCK_OTP = "1234";
+const EXISTING_USER_PHONE = "9999999999";
+
+// POST /api/customer/send-otp
+export const sendOtp = (phone) => {
   return new Promise((resolve, reject) => {
     setTimeout(() => {
-      const { name, email, phone, password } = data;
-
-      if (!name || !email || !phone || !password) {
-        return reject({ message: "All fields are required" });
+      if (!phone || phone.length !== 10) {
+        return reject({ message: "Enter a valid 10-digit mobile number" });
       }
-
-      const user = {
-        id: "cust_" + Date.now(),
-        name,
-        email,
-        phone,
-      };
-
-      const token = "mock_token_" + Date.now();
-
-      localStorage.setItem(STORAGE_KEYS.TOKEN, token);
-      localStorage.setItem(STORAGE_KEYS.USER, JSON.stringify(user));
-
-      resolve({ token, user });
+      resolve({ success: true, phone });
     }, 800);
   });
 };
 
-// POST /api/customer/login
-export const loginCustomer = (data) => {
+// POST /api/customer/verify-otp
+export const verifyOtp = (phone, otp) => {
   return new Promise((resolve, reject) => {
     setTimeout(() => {
-      const { email, password } = data;
-
-      if (!email || !password) {
-        return reject({ message: "Email and password are required" });
+      if (otp !== MOCK_OTP) {
+        return reject({ message: "Invalid OTP. Please try again." });
       }
 
-      // Mock validation — any valid email + password works
-      if (!email.includes("@") || password.length < 4) {
-        return reject({ message: "Invalid email or password" });
+      const isNewUser = phone !== EXISTING_USER_PHONE;
+
+      if (!isNewUser) {
+        // Existing user — generate token and save mock profile
+        const token = "mock_token_" + Date.now();
+        const user = {
+          id: "cust_existing",
+          name: "Existing User",
+          phone,
+          address: "123, Mock Street, City",
+        };
+        localStorage.setItem(STORAGE_KEYS.TOKEN, token);
+        localStorage.setItem(STORAGE_KEYS.USER, JSON.stringify(user));
       }
 
-      const user = {
-        id: "cust_" + Date.now(),
-        name: email.split("@")[0],
-        email,
-        phone: "",
-      };
+      resolve({ success: true, isNewUser });
+    }, 800);
+  });
+};
+
+// POST /api/customer/save-profile
+export const saveProfile = (name, address, phone) => {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      if (!name || !name.trim()) {
+        return reject({ message: "Name is required" });
+      }
+      if (!address || !address.trim()) {
+        return reject({ message: "Delivery address is required" });
+      }
 
       const token = "mock_token_" + Date.now();
+      const user = {
+        id: "cust_" + Date.now(),
+        name: name.trim(),
+        phone,
+        address: address.trim(),
+      };
 
       localStorage.setItem(STORAGE_KEYS.TOKEN, token);
       localStorage.setItem(STORAGE_KEYS.USER, JSON.stringify(user));

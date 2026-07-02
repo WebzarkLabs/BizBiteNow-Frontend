@@ -47,15 +47,15 @@ const Profile = () => {
         </div>
         <div className="border-t border-gray-100" />
         <div>
-          <p className="text-xs text-gray-400 font-semibold">Email</p>
-          <p className="text-sm text-[#1C1C1C] font-medium mt-0.5">{user.email}</p>
+          <p className="text-xs text-gray-400 font-semibold">Phone</p>
+          <p className="text-sm text-[#1C1C1C] font-medium mt-0.5">+91 {user.phone}</p>
         </div>
-        {user.phone && (
+        {user.address && (
           <>
             <div className="border-t border-gray-100" />
             <div>
-              <p className="text-xs text-gray-400 font-semibold">Phone</p>
-              <p className="text-sm text-[#1C1C1C] font-medium mt-0.5">{user.phone}</p>
+              <p className="text-xs text-gray-400 font-semibold">Delivery Address</p>
+              <p className="text-sm text-[#1C1C1C] font-medium mt-0.5">{user.address}</p>
             </div>
           </>
         )}
