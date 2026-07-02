@@ -18,7 +18,7 @@ const getAccountLabel = () => {
 const getAccountPath = () => {
   return localStorage.getItem("customerToken")
     ? "/customer/profile"
-    : "/customer/register";
+    : "/customer/login";
 };
 
 const BottomNav = () => {

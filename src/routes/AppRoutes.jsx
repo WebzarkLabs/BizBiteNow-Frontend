@@ -17,8 +17,11 @@ import ProductDetail from "../pages/customer/ProductDetail";
 import Cart from "../pages/customer/Cart";
 import Checkout from "../pages/customer/Checkout";
 import OrderConfirmation from "../pages/customer/OrderConfirmation";
-import CustomerRegister from "../pages/customer/Register";
+import CustomerOnboarding from "../pages/customer/CustomerOnboarding";
+import AllMenu from "../pages/customer/AllMenu";
 import CustomerProfile from "../pages/customer/Profile";
+import CustomerGate from "../components/customer/CustomerGate";
+import CustomerAuthGuard from "../components/customer/CustomerAuthGuard";
 import OrderDetails from "../pages/seller/OrderDetails";
 import SellerProtectedRoute from "./SellerProtectedRoute";
 
@@ -28,13 +31,63 @@ const AppRoutes = () => {
       <Routes>
         {/* Customer Storefront */}
         <Route path="/" element={<CustomerLayout />}>
-          <Route index element={<StoreFront />} />
-          <Route path="product/:id" element={<ProductDetail />} />
-          <Route path="cart" element={<Cart />} />
-          <Route path="checkout" element={<Checkout />} />
-          <Route path="order/:id" element={<OrderConfirmation />} />
-          <Route path="customer/register" element={<CustomerRegister />} />
-          <Route path="customer/profile" element={<CustomerProfile />} />
+          <Route path="customer/onboarding" element={<CustomerOnboarding />} />
+          <Route
+            path="menu"
+            element={
+              <CustomerGate>
+                <AllMenu />
+              </CustomerGate>
+            }
+          />
+          <Route
+            index
+            element={
+              <CustomerGate>
+                <StoreFront />
+              </CustomerGate>
+            }
+          />
+          <Route
+            path="product/:id"
+            element={
+              <CustomerGate>
+                <ProductDetail />
+              </CustomerGate>
+            }
+          />
+          <Route
+            path="cart"
+            element={
+              <CustomerGate>
+                <Cart />
+              </CustomerGate>
+            }
+          />
+          <Route
+            path="checkout"
+            element={
+              <CustomerGate>
+                <Checkout />
+              </CustomerGate>
+            }
+          />
+          <Route
+            path="order/:id"
+            element={
+              <CustomerGate>
+                <OrderConfirmation />
+              </CustomerGate>
+            }
+          />
+          <Route
+            path="customer/profile"
+            element={
+              <CustomerGate>
+                <CustomerProfile />
+              </CustomerGate>
+            }
+          />
         </Route>
 
         {/* Seller Authentication */}
@@ -54,8 +107,7 @@ const AppRoutes = () => {
             <Route path="earnings" element={<Earnings />} />
             <Route path="profile" element={<Profile />} />
           </Route>
-          </Route>
-
+        </Route>
 
         {/* 404 */}
         <Route
